@@ -1,0 +1,10 @@
+#palco
+            {
+                width:620px;
+                height:320px;
+                border:1px solid red;
+                overflow: auto;
+            }
+            canvas{              
+                border:1px solid red;
+            }
