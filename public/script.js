@@ -1,16 +1,5 @@
 var processosData = [];
 
-const fs = require('fs');
-
-function criarArquivoJSON(algoritmo, jsonOutput) {
-    const filePath = `./${algoritmo}_output.json`;
-
-    fs.writeFile(filePath, jsonOutput, (err) => {
-        if (err) throw err;
-        console.log(`Arquivo ${algoritmo}_output.json criado.`);
-    });
-}
-
 function adicionarProcessos() {
     var num_processos = parseInt(document.getElementById('num_processos').value);
     var quantum = parseInt(document.getElementById('qtd_quantum').value);
@@ -117,7 +106,6 @@ function calcularRespostaEDF() {
     return tempoRespostaTotal / num_processos;
 }
 
-
 function criarJSON(algoritmo) {
     var num_processos = processosData.length;
 
@@ -162,20 +150,24 @@ function criarJSON(algoritmo) {
 
     result.tempo_resposta_medio = tempoRespostaMedio;
 
-
     var jsonOutput = JSON.stringify(result, null, 2);
 
     if (algoritmo === 'FIFO') {
-        criarArquivoJSON('FIFO', jsonOutput);
         document.getElementById('jsonOutputFIFO').innerText = jsonOutput;
     } else if (algoritmo === 'SJF') {
-        criarArquivoJSON('SJF', jsonOutput);
         document.getElementById('jsonOutputSJF').innerText = jsonOutput;
     } else if (algoritmo === 'Round Robin') {
-        criarArquivoJSON('RR', jsonOutput);
         document.getElementById('jsonOutputRR').innerText = jsonOutput;
     } else if (algoritmo === 'EDF') {
-        criarArquivoJSON('EDF', jsonOutput);
         document.getElementById('jsonOutputEDF').innerText = jsonOutput;
     }
+
+    enviarDadosParaServidor(algoritmo, jsonOutput);
+}
+
+function enviarDadosParaServidor(algoritmo, jsonOutput) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `/criarArquivoJSON/${algoritmo}`);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(jsonOutput);
 }

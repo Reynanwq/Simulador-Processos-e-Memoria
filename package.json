@@ -1,10 +1,11 @@
 {
     "name": "so",
     "version": "1.0.0",
-    "description": "Travalho de Sistemas Operacionais - Simulador Processos e Memória.",
-    "main": "./main/script.js",
+    "description": "Trabalho de Sistemas Operacionais - Simulador Processos e Memória.",
+    "main": "server.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "server.js"
     },
     "keywords": [],
     "author": "",
