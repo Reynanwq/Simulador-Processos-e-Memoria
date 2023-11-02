@@ -5,40 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar JSON a partir de dados</title>
+
+    <!-- Adicionando Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-
-<body>
+<body class="container mt-5">
     <h1>Insira os dados</h1>
 
-    <label for="num_processos">Número de Processos:</label>
-    <input type="number" id="num_processos"><br>
-
-    <label for="qtd_quantum">Digite o Quantum:</label>
-    <input type="number" id="qtd_quantum"><br>
-
-    <label for="sobrecarga">Sobrecarga:</label>
-    <input type="number" id="sobrecarga" value="1"><br>
-
-    <button onclick="adicionarProcessos()">Adicionar Processos</button>
-
-    <div id="processos" style="display:none;">
-        <h2>Detalhes do Processo</h2>
-        <div id="processosDetails"></div>
-        <button onclick="criarJSON('FIFO')">Criar JSON FIFO</button>
-        <button onclick="criarJSON('SJF')">Criar JSON SJF</button>
-        <button onclick="criarJSON('Round Robin')">Criar JSON Round Robin</button>
-        <button onclick="criarJSON('EDF')">Criar JSON EDF</button>
+    <div style="width: 300px;">
+        <div class="form-group">
+            <label for="num_processos">Número de Processos:</label>
+            <input type="number" id="num_processos" class="form-control form-control-sm">
+        </div>
+    
+        <div class="form-group">
+            <label for="qtd_quantum">Digite o Quantum:</label>
+            <input type="number" id="qtd_quantum" class="form-control form-control-sm">
+        </div>
+    
+        <div class="form-group">
+            <label for="sobrecarga">Sobrecarga:</label>
+            <input type="number" id="sobrecarga" class="form-control form-control-sm" value="1">
+        </div>
     </div>
 
-    <div id="jsonOutputFIFO"></div>
-    <div id="jsonOutputSJF"></div>
-    <div id="jsonOutputRR"></div>
-    <div id="jsonOutputEDF"></div>
+    <button onclick="adicionarProcessos()" class="btn btn-primary">Adicionar Processos</button>
 
+    <div id="processos" class="mt-4" style="display:none;">
+        <h2>Detalhes do Processo</h2>
+        <div id="processosDetails" class="form-group"></div>
+        <button onclick="criarJSON('FIFO')" class="btn btn-success btn-sm">FIFO</button>
+        <button onclick="criarJSON('SJF')" class="btn btn-success btn-sm">SJF</button>
+        <button onclick="criarJSON('Round Robin')" class="btn btn-success btn-sm">Round Robin</button>
+        <button onclick="criarJSON('EDF')" class="btn btn-success btn-sm">EDF</button>
+    </div>
+
+    <div id="jsonOutputFIFO" class="mt-4"></div>
+    <div id="jsonOutputSJF" class="mt-4"></div>
+    <div id="jsonOutputRR" class="mt-4"></div>
+    <div id="jsonOutputEDF" class="mt-4"></div>
+
+    <script src="escalonador.js"></script>
     <script src="script.js"></script>
-</body>
-
-
-
-</html>
+    
+    <!-- Adicionando Bootstrap JS (opcional) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
