@@ -1,5 +1,13 @@
 class Escalonador {
-    static calcularRespostaFIFO() {
+
+    constructor(quantum, sobrecarga) {
+        this.quantum = quantum
+        this.sobrecarga = sobrecarga
+        this.fila = [];
+        this.cpu = [];
+    }
+
+    calcularRespostaFIFO(result) {
         var num_processos = processosData.length;
         var tempoRespostaTotal = 0;
 
@@ -14,7 +22,7 @@ class Escalonador {
         return tempoRespostaTotal / num_processos;
     }
 
-    static calcularRespostaSJF() {
+    calcularRespostaSJF() {
         var num_processos = processosData.length;
         var tempoRespostaTotal = 0;
 
@@ -29,7 +37,7 @@ class Escalonador {
         return tempoRespostaTotal / num_processos;
     }
 
-    static calcularRespostaRoundRobin() {
+    calcularRespostaRoundRobin() {
         var num_processos = processosData.length;
         var tempoRespostaTotal = 0;
         var quantum = 2;
@@ -46,7 +54,7 @@ class Escalonador {
         return tempoRespostaTotal / num_processos;
     }
 
-    static calcularRespostaEDF() {
+    calcularRespostaEDF() {
         var num_processos = processosData.length;
         var tempoRespostaTotal = 0;
 

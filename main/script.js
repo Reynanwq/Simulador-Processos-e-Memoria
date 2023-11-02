@@ -76,8 +76,8 @@ function criarJSON(algoritmo) {
 
     
     for (var i = 0; i < processosData.length; i++) {
-        var label = String.fromCharCode(65 + i);
-        result.processos[label] = {
+        // var label = String.fromCharCode(65 + i);
+        result.processos[i] = {
             "grafico": {},
             "tempo_de_estouro_da_deadline": processosData[i].deadline,
             "tempo_de_chegada": processosData[i].tempo_chegada,
@@ -85,19 +85,17 @@ function criarJSON(algoritmo) {
         };
     }
 
-    console.log(JSON.stringify(result, null, 2));
-
     var tempoRespostaMedio;
     
-
+    escalonador = new Escalonador(quantum, sobrecarga)
     if (algoritmo === 'FIFO') {
-        Escalonador.calcularRespostaFIFO();
+        escalonador.calcularRespostaFIFO(result);
     } else if (algoritmo === 'SJF') {
-        Escalonador.calcularRespostaSJF();
+        escalonador.calcularRespostaSJF();
     } else if (algoritmo === 'Round Robin') {
-        Escalonador.calcularRespostaRoundRobin();
+        escalonador.calcularRespostaRoundRobin();
     } else if (algoritmo === 'EDF') {
-        Escalonador.calcularRespostaEDF();
+        escalonador.calcularRespostaEDF();
     }
 
     result.tempo_resposta_medio = tempoRespostaMedio;
