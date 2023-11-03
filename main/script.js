@@ -49,7 +49,7 @@ function adicionarProcessos() {
 
 
 
-async function criarJSON(algoritmo) {
+async function executar(algoritmo) {
     var quantum = parseInt(document.getElementById('qtd_quantum').value);
     var sobrecarga = parseInt(document.getElementById('sobrecarga').value);
     var data = {
