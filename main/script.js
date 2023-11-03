@@ -24,15 +24,15 @@ function adicionarProcessos() {
                 </div>
                 <div class="col">
                     <label for="deadline_time_${i}">Deadline:</label>
-                    <input type="number" id="deadline_time_${i}" class="form-control">
+                    <input type="number" id="deadline_time_${i}", value="${i}" class="form-control">
                 </div>
                 <div class="col">
                     <label for="time_chegada_${i}">Tempo de chegada:</label>
-                    <input type="number" id="time_chegada_${i}" class="form-control">
+                    <input type="number" id="time_chegada_${i}", value="0" class="form-control">
                 </div>
                 <div class="col">
                     <label for="execucao_tempo_${i}">Tempo de execução:</label>
-                    <input type="number" id="execucao_tempo_${i}" class="form-control">
+                    <input type="number" id="execucao_tempo_${i}", value="10" class="form-control">
                 </div>
             </div>
         `;
@@ -53,13 +53,13 @@ function adicionarProcessos() {
 
 
 
-function criarJSON(algoritmo) {
+async function criarJSON(algoritmo) {
     var quantum = parseInt(document.getElementById('qtd_quantum').value);
     var sobrecarga = parseInt(document.getElementById('sobrecarga').value);
-    var result = {
+    var data = {
         "sobrecarga": sobrecarga,
         "quantum": quantum,
-        "processos": {}
+        "processos": []
     };
 
     var num_processos = processosData.length;
@@ -75,21 +75,22 @@ function criarJSON(algoritmo) {
     }
 
     
-    for (var i = 0; i < processosData.length; i++) {
-        // var label = String.fromCharCode(65 + i);
-        result.processos[i] = {
+    for (var i = 0; i < num_processos; i++) {
+        var label = String.fromCharCode(65 + i);
+        data.processos.push({
+            "label": label,
             "grafico": {},
             "tempo_de_estouro_da_deadline": processosData[i].deadline,
             "tempo_de_chegada": processosData[i].tempo_chegada,
             "tempo_de_execucao": processosData[i].tempo_execucao
-        };
+        })
     }
 
-    var tempoRespostaMedio;
-    
-    escalonador = new Escalonador(quantum, sobrecarga)
+    let resultado = data
+    escalonador = new Escalonador(data)
+
     if (algoritmo === 'FIFO') {
-        escalonador.calcularRespostaFIFO(result);
+        resultado = await escalonador.calcularRespostaFIFO(data.processos);
     } else if (algoritmo === 'SJF') {
         escalonador.calcularRespostaSJF();
     } else if (algoritmo === 'Round Robin') {
@@ -98,8 +99,7 @@ function criarJSON(algoritmo) {
         escalonador.calcularRespostaEDF();
     }
 
-    result.tempo_resposta_medio = tempoRespostaMedio;
 
-
-    var jsonOutput = JSON.stringify(result, null, 2);
+    var jsonOutput = JSON.stringify(resultado);
+    console.log(jsonOutput)
 }
