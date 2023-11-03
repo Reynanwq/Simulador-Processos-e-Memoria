@@ -5,26 +5,6 @@
         {
             "label": "A",
             "grafico": {
-                "0": "executando",
-                "1": "executando",
-                "2": "executando",
-                "3": "executando",
-                "4": "executando",
-                "5": "executando",
-                "6": "executando",
-                "7": "executando",
-                "8": "executando",
-                "9": "executando"
-            },
-            "tempo_de_estouro_da_deadline": 0,
-            "tempo_de_chegada": 0,
-            "tempo_de_execucao": 10,
-            "tempo_total": 10
-        },
-        {
-            "label": "B",
-            "grafico": {
-                "20": "executando",
                 "21": "executando",
                 "22": "executando",
                 "23": "executando",
@@ -33,51 +13,58 @@
                 "26": "executando",
                 "27": "executando",
                 "28": "executando",
-                "29": "executando"
+                "29": "executando",
+                "30": "executando"
             },
-            "tempo_de_estouro_da_deadline": 1,
-            "tempo_de_chegada": 4,
+            "tempo_de_chegada": 0,
             "tempo_de_execucao": 10,
-            "tempo_total": 26
+            "tempo_total": 31
+        },
+        {
+            "label": "B",
+            "grafico": {
+                "0": "executando",
+                "1": "executando",
+                "2": "executando",
+                "3": "executando",
+                "4": "executando",
+                "5": "executando"
+            },
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 6,
+            "tempo_total": 6
         },
         {
             "label": "C",
             "grafico": {
-                "10": "executando",
-                "11": "executando",
-                "12": "executando",
                 "13": "executando",
                 "14": "executando",
                 "15": "executando",
                 "16": "executando",
                 "17": "executando",
                 "18": "executando",
-                "19": "executando"
+                "19": "executando",
+                "20": "executando"
             },
-            "tempo_de_estouro_da_deadline": 2,
-            "tempo_de_chegada": 2,
-            "tempo_de_execucao": 10,
-            "tempo_total": 18
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 8,
+            "tempo_total": 21
         },
         {
             "label": "D",
             "grafico": {
-                "30": "executando",
-                "31": "executando",
-                "32": "executando",
-                "33": "executando",
-                "34": "executando",
-                "35": "executando",
-                "36": "executando",
-                "37": "executando",
-                "38": "executando",
-                "39": "executando"
+                "6": "executando",
+                "7": "executando",
+                "8": "executando",
+                "9": "executando",
+                "10": "executando",
+                "11": "executando",
+                "12": "executando"
             },
-            "tempo_de_estouro_da_deadline": 3,
-            "tempo_de_chegada": 5,
-            "tempo_de_execucao": 10,
-            "tempo_total": 35
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 7,
+            "tempo_total": 13
         }
     ],
-    "tempo_medio": 22.25
+    "tempo_medio": 17.75
 }

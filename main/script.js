@@ -45,10 +45,6 @@ function adicionarProcessos() {
     document.getElementById('sobrecarga').disabled = true;
 
     document.getElementById('processos').style.display = 'block';
-    document.getElementById('jsonOutputFIFO').innerHTML = '';
-    document.getElementById('jsonOutputSJF').innerHTML = '';
-    document.getElementById('jsonOutputRR').innerHTML = '';
-    document.getElementById('jsonOutputEDF').innerHTML = '';
 }
 
 
@@ -77,22 +73,26 @@ async function criarJSON(algoritmo) {
     
     for (var i = 0; i < num_processos; i++) {
         var label = String.fromCharCode(65 + i);
-        data.processos.push({
+        var atributos = {
             "label": label,
             "grafico": {},
-            "tempo_de_estouro_da_deadline": processosData[i].deadline,
             "tempo_de_chegada": processosData[i].tempo_chegada,
             "tempo_de_execucao": processosData[i].tempo_execucao
-        })
+        }
+        if (algoritmo === 'EDF') {
+            atributos["tempo_de_estouro_da_deadline"] = processosData[i].deadline
+        }
+
+        data.processos.push(atributos)
     }
 
     let resultado = data
     escalonador = new Escalonador(data)
 
     if (algoritmo === 'FIFO') {
-        resultado = await escalonador.calcularRespostaFIFO(data.processos);
+        resultado = await escalonador.fifo(data.processos);
     } else if (algoritmo === 'SJF') {
-        escalonador.calcularRespostaSJF();
+        resultado = escalonador.sjf();
     } else if (algoritmo === 'Round Robin') {
         escalonador.calcularRespostaRoundRobin();
     } else if (algoritmo === 'EDF') {
@@ -101,5 +101,7 @@ async function criarJSON(algoritmo) {
 
 
     var jsonOutput = JSON.stringify(resultado);
-    console.log(jsonOutput)
+    let tempo_medio = resultado.tempo_medio.toFixed(2);;
+    document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
+    
 }
