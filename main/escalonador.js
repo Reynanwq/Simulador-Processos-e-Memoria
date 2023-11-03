@@ -18,6 +18,26 @@ class Escalonador {
         this.fila = []
     }
 
+    /*************************************************************************************
+     * 
+     *                                       GERAL
+     * 
+     ************************************************************************************/
+
+    /**
+     * Inicializa o tempo atual como sendo o tempo de chegada do primeiro processo
+     */
+    inicializarTempoAtual(processo) {
+        if (this.num_processos_executados == 0) {
+            this.tempoAtual = processo.tempo_de_chegada
+        }
+    }
+
+    /*************************************************************************************
+     * 
+     *                                       FIFO
+     * 
+     ************************************************************************************/
 
     async fifo(result) {
         let processos = this.processos
@@ -66,6 +86,12 @@ class Escalonador {
         this.num_processos_executados++
         this.processosData.processos = this.processos
     }
+
+    /*************************************************************************************
+     * 
+     *                                       SJF
+     * 
+     ************************************************************************************/
 
     sjf() {
         let processos = this.processos
@@ -151,12 +177,11 @@ class Escalonador {
         this.fila = this.fila.filter(p => p.label !== label);
     }
 
-    inicializarTempoAtual(processo) {
-        // O tempo atual deve iniciar sendo igual ao tempo de chega do primeiro processo
-        if (this.num_processos_executados == 0) {
-            this.tempoAtual = processo.tempo_de_chegada
-        }
-    }
+    /*************************************************************************************
+     * 
+     *                                     ROUND ROBIN
+     * 
+     ************************************************************************************/
 
     calcularRespostaRoundRobin() {
         var num_processos = processosData.length;
@@ -175,6 +200,11 @@ class Escalonador {
         return tempoRespostaTotal / num_processos;
     }
 
+    /*************************************************************************************
+     * 
+     *                                     EDF
+     * 
+     ************************************************************************************/
 
     calcularRespostaEDF() {
         var num_processos = processosData.length;
