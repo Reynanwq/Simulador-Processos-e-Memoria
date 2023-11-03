@@ -12,6 +12,7 @@ class Escalonador {
 
 
         this.tempoAtual = 0
+        this.timerSJF = 0
 
         this.cpu = []
         this.fila = []
@@ -44,6 +45,8 @@ class Escalonador {
      * Execução do processo na CPU utilizando o FIFO
      */
     executaFIFO(processo) {
+        this.inicializarTempoAtual(processo)
+
         let tempo_execucao = processo.tempo_de_execucao - 1
         let iteracao_final = tempo_execucao + this.tempoAtual
 
@@ -66,21 +69,23 @@ class Escalonador {
 
     sjf() {
         let processos = this.processos
-        let timer = 0
+        
         while (this.num_processos_executados < this.num_processos) {
             for (const processo of processos) {
-                // console.log(processo.label + " " + processo.tempo_de_chegada + " " + timer)
-                if (processo.tempo_de_chegada == timer) {
+                console.log(processo.label + " " + processo.tempo_de_chegada + " " + this.timerSJF)
+                if (processo.tempo_de_chegada == this.timerSJF) {
                     this.fila.push(processo)
                 }
             }
 
             if (this.fila.length > 0) {
-                let menor_processo = this.selecionaProcessoMaisCurtoParaEntrarNaCpu(this.fila)
+                this.print(this.fila)
+                let menor_processo = this.pegarProcessoMaisCurto(this.fila)
                 this.executaSJF(menor_processo)
             }
 
-            timer++
+
+            this.timerSJF++
         }
 
         let tempoTotal = 0
@@ -94,7 +99,7 @@ class Escalonador {
     /**
      * Retorna o processo mais curto da fila de prontos
      */
-    selecionaProcessoMaisCurtoParaEntrarNaCpu(fila_de_processos) {
+    pegarProcessoMaisCurto(fila_de_processos) {
         let menor_tempo = Infinity;
         let menor_processo = null;
 
@@ -107,16 +112,28 @@ class Escalonador {
         return menor_processo
     }
 
+    verificarSeAlgumProcessoPrecisaEntrarNaFila(tempoAtual, labelDoProcessoEmExecucao) {
+        for (const processo of this.processos) {
+            if (processo.tempo_de_chegada == tempoAtual && labelDoProcessoEmExecucao != processo.label) {
+                this.fila.push(processo)
+                this.timerSJF = tempoAtual
+            }
+        }
+    }
+
     /**
      * Execução do processo na CPU utilizando SJF
      */
     executaSJF(processo) {
+        this.inicializarTempoAtual(processo)
+
         let tempo_execucao = processo.tempo_de_execucao - 1
         let iteracao_final = tempo_execucao + this.tempoAtual
 
         while (this.tempoAtual <= iteracao_final) {
             processo.grafico[this.tempoAtual] = 'executando'
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
+            this.verificarSeAlgumProcessoPrecisaEntrarNaFila(this.tempoAtual, processo.label)
             this.tempoAtual++
         }
 
@@ -132,6 +149,13 @@ class Escalonador {
 
         // Retira processo da fila de prontos, pois acabou de ser executado
         this.fila = this.fila.filter(p => p.label !== label);
+    }
+
+    inicializarTempoAtual(processo) {
+        // O tempo atual deve iniciar sendo igual ao tempo de chega do primeiro processo
+        if (this.num_processos_executados == 0) {
+            this.tempoAtual = processo.tempo_de_chegada
+        }
     }
 
     calcularRespostaRoundRobin() {

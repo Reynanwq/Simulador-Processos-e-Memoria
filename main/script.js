@@ -101,6 +101,7 @@ async function criarJSON(algoritmo) {
 
 
     var jsonOutput = JSON.stringify(resultado);
+    // console.log(jsonOutput)
     let tempo_medio = resultado.tempo_medio.toFixed(2);;
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
     
