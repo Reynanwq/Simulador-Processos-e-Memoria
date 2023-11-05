@@ -14,6 +14,9 @@ class Escalonador {
         this.tempoAtual = 0
         this.timerSJF = 0
 
+        this.tempoAtualRoundRobinFoiInicializado = false
+        this.timerRR = 0
+
         this.cpu = []
         this.fila = []
     }
@@ -183,21 +186,108 @@ class Escalonador {
      * 
      ************************************************************************************/
 
-    calcularRespostaRoundRobin() {
-        var num_processos = processosData.length;
-        var tempoRespostaTotal = 0;
-        var quantum = 2;
-
-        processosData.sort(function (a, b) {
-            return a.tempo_chegada - b.tempo_chegada;
-        });
-
-        for (var i = 0; i < num_processos; i++) {
-            var chegada = processosData[i].tempo_chegada;
-            tempoRespostaTotal += Math.min(chegada, i * quantum);
+    roundrobin() {
+        for (let i = 0; i < this.processos.length; i++) {
+            this.processos[i].tempo_restante = this.processos[i].tempo_de_execucao
+            this.processos[i].falta_executar = undefined
         }
 
-        return tempoRespostaTotal / num_processos;
+        let processos = this.processos
+        while (this.num_processos_executados < this.num_processos) {
+            for (const processo of processos) {
+                if (
+                    (processo.tempo_de_chegada == this.timerRR && processo.tempo_restante > 0)
+                    || processo.falta_executar == true
+                    ) {
+                    this.fila.push(processo)
+                    // console.log('t: ' + this.tempoAtual + ' processo: ' + processo.label)
+                    this.executaRoundRobin(processo)
+                }
+            }
+            this.timerRR++
+        }
+
+        let tempoTotal = 0
+        for (const processo of this.processos) {
+            tempoTotal += processo.tempo_total
+        }
+        this.processosData['tempo_medio'] = tempoTotal / this.num_processos
+        this.num_processos_executados = 0
+        this.print(this.processosData)
+        return this.processosData;
+    }
+
+    executaRoundRobin(processo) {
+        this.inicializarTempoAtualRoundRobin(processo)
+
+        let iteracao_final_da_execucao = this.quantum + this.tempoAtual - 1
+
+        while (this.tempoAtual <= iteracao_final_da_execucao && processo.tempo_restante > 0) {
+            processo.grafico[this.tempoAtual] = 'executando'
+            processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
+            processo.tempo_restante = processo.tempo_restante - 1
+            this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+            this.tempoAtual++
+            this.timerRR++
+        }
+
+        if (processo.tempo_restante <= 0) {
+            this.num_processos_executados++
+            processo.falta_executar = false
+        } else {
+            processo.falta_executar = true
+
+            let iteracao_final_da_sobrecarga = this.sobrecarga + this.tempoAtual - 1
+
+            while (this.tempoAtual <= iteracao_final_da_sobrecarga) {
+                processo.grafico[this.tempoAtual] = 'sobrecarga'
+                processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
+                this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+                this.tempoAtual++
+                this.timerRR++
+            }
+        }
+
+        
+        const label = processo.label
+        for (let i = 0; i < this.processos.length; i++) {
+            if (this.processos[i].label == label) {
+                this.processos[i] = processo
+            }
+        }
+
+        this.fila = this.fila.filter(p => p.label !== label);
+        this.processosData.processos = this.processos
+    }
+
+    inicializarTempoAtualRoundRobin(processo) {
+        if (this.tempoAtualRoundRobinFoiInicializado == false) {
+            this.tempoAtual = processo.tempo_de_chegada
+        }
+        this.tempoAtualRoundRobinFoiInicializado = true
+    }
+
+    verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(tempoAtual, labelDoProcessoEmExecucao) {
+        for (let i = 0; i < this.processos.length; i++) {
+            if (this.processos[i].tempo_de_chegada == tempoAtual && labelDoProcessoEmExecucao != this.processos[i].label) {
+
+                let processoEstaNaFila = false
+                for (const processoNaFila of this.fila) {
+                    if (processoNaFila.label == this.processos[i].label) {
+                        processoEstaNaFila = true
+                        break
+                    }
+                }
+
+                if (processoEstaNaFila == false) {
+                    this.fila.push(this.processos[i])
+                    this.processos[i].falta_executar = true
+                }
+
+            }
+        }
+        this.timerRR = tempoAtual
+
     }
 
     /*************************************************************************************

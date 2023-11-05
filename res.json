@@ -1,72 +1,77 @@
 {
-    "sobrecarga": 2,
+    "sobrecarga": 1,
     "quantum": 2,
     "processos": [
         {
             "label": "A",
             "grafico": {
-                "6": "executando",
-                "7": "executando",
-                "8": "executando",
+                "0": "executando",
+                "1": "executando",
+                "2": "sobrecarga",
                 "9": "executando",
                 "10": "executando",
-                "11": "executando",
-                "12": "executando",
-                "13": "executando",
-                "14": "executando"
+                "11": "sobrecarga",
+                "18": "executando",
+                "19": "executando",
+                "20": "sobrecarga",
+                "27": "executando",
+                "28": "executando",
+                "29": "sobrecarga",
+                "33": "executando",
+                "34": "executando",
+                "35": "sobrecarga",
+                "36": "executando",
+                "37": "executando",
+                "38": "sobrecarga",
+                "39": "executando"
             },
-            "tempo_de_chegada": 2,
-            "tempo_de_execucao": 9,
-            "tempo_total": 13
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 13,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 40
         },
         {
             "label": "B",
             "grafico": {
-                "2": "executando",
                 "3": "executando",
                 "4": "executando",
-                "5": "executando"
+                "5": "sobrecarga",
+                "12": "executando",
+                "13": "executando",
+                "14": "sobrecarga",
+                "21": "executando",
+                "22": "executando",
+                "23": "sobrecarga",
+                "30": "executando"
             },
-            "tempo_de_chegada": 2,
-            "tempo_de_execucao": 4,
-            "tempo_total": 4
+            "tempo_de_chegada": 4,
+            "tempo_de_execucao": 7,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 27
         },
         {
             "label": "C",
             "grafico": {
+                "6": "executando",
+                "7": "executando",
+                "8": "sobrecarga",
                 "15": "executando",
                 "16": "executando",
-                "17": "executando",
-                "18": "executando",
-                "19": "executando",
-                "20": "executando",
-                "21": "executando"
-            },
-            "tempo_de_chegada": 5,
-            "tempo_de_execucao": 7,
-            "tempo_total": 17
-        },
-        {
-            "label": "D",
-            "grafico": {
-                "22": "executando",
-                "23": "executando",
+                "17": "sobrecarga",
                 "24": "executando",
                 "25": "executando",
-                "26": "executando",
-                "27": "executando",
-                "28": "executando",
-                "29": "executando",
-                "30": "executando",
+                "26": "sobrecarga",
                 "31": "executando",
-                "32": "executando",
-                "33": "executando",
-                "34": "executando"
+                "32": "executando"
             },
-            "tempo_de_chegada": 7,
-            "tempo_de_execucao": 13,
+            "tempo_de_chegada": 5,
+            "tempo_de_execucao": 8,
+            "tempo_restante": 0,
+            "falta_executar": false,
             "tempo_total": 28
         }
     ],
-    "tempo_medio": 15.5
+    "tempo_medio": 31.666666666666668
 }
