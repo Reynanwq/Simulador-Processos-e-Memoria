@@ -297,21 +297,68 @@ class Escalonador {
      ************************************************************************************/
 
     calcularRespostaEDF() {
-        var num_processos = processosData.length;
-        var tempoRespostaTotal = 0;
+        let processos = this.processos;
+        while (this.num_processos_executados < this.num_processos) {
+            for (const processo of processos) {
+                if (processo.tempo_de_chegada <= this.tempoAtual && processo.tempo_restante > 0) {
+                    this.fila.push(processo);
+                }
+            }
 
-        processosData.sort(function (a, b) {
-            return a.deadline - b.deadline;
-        });
+            if (this.fila.length > 0) {
+                let proximo_processo = this.pegarProcessoMaisCedo(this.fila);
+                this.executaEDF(proximo_processo);
+            }
 
-        for (var i = 0; i < num_processos; i++) {
-            tempoRespostaTotal += processosData[i].tempo_chegada;
+            this.timerSJF++;
+            this.tempoAtual++;
         }
-        return tempoRespostaTotal / num_processos;
+
+        
+        let tempoTotal = 0;
+        for (const processo of this.processos) {
+            tempoTotal += processo.tempo_total;
+        }
+        this.processosData['tempo_medio'] = tempoTotal / this.num_processos;
+        return this.processosData;
     }
 
-    print(data) {
-        console.log(JSON.stringify(data))
+    
+    pegarProcessoMaisCedo(fila_de_processos) {
+        let menor_deadline = Infinity;
+        let processo_escolhido = null;
+
+        for (const processo of fila_de_processos) {
+            if (processo.deadline < menor_deadline) {
+                menor_deadline = processo.deadline;
+                processo_escolhido = processo;
+            }
+        }
+
+        return processo_escolhido;
+    }
+
+   
+    executaEDF(processo) {
+        this.inicializarTempoAtual(processo);
+        let tempo_execucao = processo.tempo_de_execucao - 1;
+        let iteracao_final = tempo_execucao + this.tempoAtual;
+
+        while (this.tempoAtual <= iteracao_final) {
+            processo.grafico[this.tempoAtual] = 'executando';
+            processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1;
+            this.tempoAtual++;
+        }
+
+        const label = processo.label;
+        for (let i = 0; i < this.processos.length; i++) {
+            if (this.processos[i].label == label) {
+                this.processos[i] = processo;
+            }
+        }
+
+        this.num_processos_executados++;
+        this.processosData.processos = this.processos;
+        this.fila = this.fila.filter(p => p.label !== label);
     }
 }
-
