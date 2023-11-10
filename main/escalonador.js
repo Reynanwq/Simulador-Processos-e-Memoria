@@ -12,10 +12,18 @@ class Escalonador {
 
 
         this.tempoAtual = 0
+
+        // Variáveis especificas do SJF
         this.timerSJF = 0
 
+        // Variáveis especificas do RR
         this.tempoAtualRoundRobinFoiInicializado = false
         this.timerRR = 0
+
+
+        // Variáveis especificas do EDF
+        this.timerEDF = 0
+        this.tempoAtualEDFFoiInicializado = 0
 
         this.cpu = []
         this.fila = []
@@ -286,6 +294,7 @@ class Escalonador {
 
             }
         }
+        this.timerEDF = tempoAtual
         this.timerRR = tempoAtual
 
     }
@@ -296,11 +305,17 @@ class Escalonador {
      * 
      ************************************************************************************/
 
-    calcularRespostaEDF() {
-        let processos = this.processos;
+    edf() {
+        for (let i = 0; i < this.processos.length; i++) {
+            this.processos[i].tempo_restante = this.processos[i].tempo_de_execucao
+            this.processos[i].falta_executar = undefined
+        }
+
+        let processos = this.processos
+        
         while (this.num_processos_executados < this.num_processos) {
             for (const processo of processos) {
-                if (processo.tempo_de_chegada <= this.tempoAtual && processo.tempo_restante > 0) {
+                if (processo.tempo_de_chegada <= this.timerEDF && processo.tempo_restante > 0) {
                     this.fila.push(processo);
                 }
             }
@@ -310,8 +325,7 @@ class Escalonador {
                 this.executaEDF(proximo_processo);
             }
 
-            this.timerSJF++;
-            this.tempoAtual++;
+            this.timerEDF++;
         }
 
         
@@ -320,10 +334,54 @@ class Escalonador {
             tempoTotal += processo.tempo_total;
         }
         this.processosData['tempo_medio'] = tempoTotal / this.num_processos;
+        this.print(this.processosData)
         return this.processosData;
     }
 
-    
+    executaEDF(processo) {
+        this.inicializarTempoAtualEDF(processo);
+
+        let iteracao_final_da_execucao = this.quantum + this.tempoAtual - 1
+
+        while (this.tempoAtual <= iteracao_final_da_execucao && processo.tempo_restante > 0) {
+            processo.grafico[this.tempoAtual] = 'executando'
+            processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
+            processo.tempo_restante = processo.tempo_restante - 1
+            this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+
+            this.tempoAtual++
+            this.timerEDF++
+        }
+
+        if (processo.tempo_restante <= 0) {
+            this.num_processos_executados++
+            processo.falta_executar = false
+        } else {
+            processo.falta_executar = true
+
+            let iteracao_final_da_sobrecarga = this.sobrecarga + this.tempoAtual - 1
+
+            while (this.tempoAtual <= iteracao_final_da_sobrecarga) {
+                processo.grafico[this.tempoAtual] = 'sobrecarga'
+                processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
+                this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+                this.tempoAtual++
+                this.timerEDF++
+            }
+        }
+
+        
+        const label = processo.label
+        for (let i = 0; i < this.processos.length; i++) {
+            if (this.processos[i].label == label) {
+                this.processos[i] = processo
+            }
+        }
+
+        this.fila = this.fila.filter(p => p.label !== label);
+        this.processosData.processos = this.processos
+    }
+
     pegarProcessoMaisCedo(fila_de_processos) {
         let menor_deadline = Infinity;
         let processo_escolhido = null;
@@ -338,27 +396,15 @@ class Escalonador {
         return processo_escolhido;
     }
 
-   
-    executaEDF(processo) {
-        this.inicializarTempoAtual(processo);
-        let tempo_execucao = processo.tempo_de_execucao - 1;
-        let iteracao_final = tempo_execucao + this.tempoAtual;
-
-        while (this.tempoAtual <= iteracao_final) {
-            processo.grafico[this.tempoAtual] = 'executando';
-            processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1;
-            this.tempoAtual++;
+    inicializarTempoAtualEDF(processo) {
+        if (this.tempoAtualEDFFoiInicializado == false) {
+            this.tempoAtual = processo.tempo_de_chegada
         }
+        this.tempoAtualEDFFoiInicializado = true
+    }
+    
 
-        const label = processo.label;
-        for (let i = 0; i < this.processos.length; i++) {
-            if (this.processos[i].label == label) {
-                this.processos[i] = processo;
-            }
-        }
-
-        this.num_processos_executados++;
-        this.processosData.processos = this.processos;
-        this.fila = this.fila.filter(p => p.label !== label);
+    print(data) {
+        console.log(JSON.stringify(data))
     }
 }

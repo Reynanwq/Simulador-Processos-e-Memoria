@@ -1,5 +1,5 @@
 {
-    "sobrecarga": 1,
+    "sobrecarga": 2,
     "quantum": 2,
     "processos": [
         {
@@ -8,70 +8,97 @@
                 "0": "executando",
                 "1": "executando",
                 "2": "sobrecarga",
-                "9": "executando",
-                "10": "executando",
-                "11": "sobrecarga",
+                "3": "sobrecarga",
+                "14": "executando",
+                "15": "executando",
+                "16": "sobrecarga",
+                "17": "sobrecarga",
                 "18": "executando",
                 "19": "executando",
                 "20": "sobrecarga",
+                "21": "sobrecarga",
+                "22": "executando",
+                "23": "executando",
+                "24": "sobrecarga",
+                "25": "sobrecarga",
+                "26": "executando",
                 "27": "executando",
-                "28": "executando",
+                "28": "sobrecarga",
                 "29": "sobrecarga",
-                "33": "executando",
-                "34": "executando",
-                "35": "sobrecarga",
-                "36": "executando",
-                "37": "executando",
-                "38": "sobrecarga",
-                "39": "executando"
+                "30": "executando"
             },
             "tempo_de_chegada": 0,
-            "tempo_de_execucao": 13,
+            "tempo_de_execucao": 11,
+            "deadline": 7,
             "tempo_restante": 0,
             "falta_executar": false,
-            "tempo_total": 40
+            "tempo_total": 31
         },
         {
             "label": "B",
             "grafico": {
-                "3": "executando",
-                "4": "executando",
-                "5": "sobrecarga",
-                "12": "executando",
-                "13": "executando",
-                "14": "sobrecarga",
-                "21": "executando",
-                "22": "executando",
-                "23": "sobrecarga",
-                "30": "executando"
+                "44": "executando",
+                "45": "executando",
+                "46": "sobrecarga",
+                "47": "sobrecarga",
+                "48": "executando",
+                "49": "executando",
+                "50": "sobrecarga",
+                "51": "sobrecarga",
+                "52": "executando"
             },
             "tempo_de_chegada": 4,
-            "tempo_de_execucao": 7,
+            "tempo_de_execucao": 5,
+            "deadline": 12,
             "tempo_restante": 0,
             "falta_executar": false,
-            "tempo_total": 27
+            "tempo_total": 49
         },
         {
             "label": "C",
             "grafico": {
-                "6": "executando",
-                "7": "executando",
-                "8": "sobrecarga",
-                "15": "executando",
-                "16": "executando",
-                "17": "sobrecarga",
-                "24": "executando",
-                "25": "executando",
-                "26": "sobrecarga",
-                "31": "executando",
-                "32": "executando"
+                "4": "executando",
+                "5": "executando",
+                "6": "sobrecarga",
+                "7": "sobrecarga",
+                "8": "executando",
+                "9": "executando",
+                "10": "sobrecarga",
+                "11": "sobrecarga",
+                "12": "executando",
+                "13": "executando"
             },
-            "tempo_de_chegada": 5,
-            "tempo_de_execucao": 8,
+            "tempo_de_chegada": 4,
+            "tempo_de_execucao": 6,
+            "deadline": 4,
             "tempo_restante": 0,
             "falta_executar": false,
-            "tempo_total": 28
+            "tempo_total": 10
+        },
+        {
+            "label": "D",
+            "grafico": {
+                "31": "executando",
+                "32": "executando",
+                "33": "sobrecarga",
+                "34": "sobrecarga",
+                "35": "executando",
+                "36": "executando",
+                "37": "sobrecarga",
+                "38": "sobrecarga",
+                "39": "executando",
+                "40": "executando",
+                "41": "sobrecarga",
+                "42": "sobrecarga",
+                "43": "executando"
+            },
+            "tempo_de_chegada": 6,
+            "tempo_de_execucao": 7,
+            "deadline": 9,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 38
         }
     ],
-    "tempo_medio": 31.666666666666668
+    "tempo_medio": 32
 }

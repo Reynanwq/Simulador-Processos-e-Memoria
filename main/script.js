@@ -80,7 +80,7 @@ async function executar(algoritmo) {
             "tempo_de_execucao": processosData[i].tempo_execucao
         }
         if (algoritmo === 'EDF') {
-            atributos["tempo_de_estouro_da_deadline"] = processosData[i].deadline
+            atributos["deadline"] = processosData[i].deadline
         }
 
         data.processos.push(atributos)
@@ -96,7 +96,7 @@ async function executar(algoritmo) {
     } else if (algoritmo === 'Round Robin') {
         resultado = escalonador.roundrobin();
     } else if (algoritmo === 'EDF') {
-        escalonador.calcularRespostaEDF();
+        resultado = escalonador.edf();
     }
 
 
