@@ -234,7 +234,7 @@ class Escalonador {
             processo.grafico[this.tempoAtual] = 'executando'
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             processo.tempo_restante = processo.tempo_restante - 1
-            this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+            this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
             this.tempoAtual++
             this.timerRR++
         }
@@ -250,7 +250,7 @@ class Escalonador {
             while (this.tempoAtual <= iteracao_final_da_sobrecarga) {
                 processo.grafico[this.tempoAtual] = 'sobrecarga'
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
-                this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+                this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++
                 this.timerRR++
             }
@@ -275,7 +275,7 @@ class Escalonador {
         this.tempoAtualRoundRobinFoiInicializado = true
     }
 
-    verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(tempoAtual, labelDoProcessoEmExecucao) {
+    verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(tempoAtual, labelDoProcessoEmExecucao) {
         for (let i = 0; i < this.processos.length; i++) {
             if (this.processos[i].tempo_de_chegada == tempoAtual && labelDoProcessoEmExecucao != this.processos[i].label) {
 
@@ -347,7 +347,7 @@ class Escalonador {
             processo.grafico[this.tempoAtual] = 'executando'
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             processo.tempo_restante = processo.tempo_restante - 1
-            this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+            this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
 
             this.tempoAtual++
             this.timerEDF++
@@ -364,7 +364,7 @@ class Escalonador {
             while (this.tempoAtual <= iteracao_final_da_sobrecarga) {
                 processo.grafico[this.tempoAtual] = 'sobrecarga'
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
-                this.verificarSeAlgumProcessoPrecisaEntrarNaFilaRoundRobin(this.tempoAtual, processo.label)
+                this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++
                 this.timerEDF++
             }
