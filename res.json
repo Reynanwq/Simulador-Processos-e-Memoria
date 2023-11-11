@@ -9,10 +9,31 @@
                 "1": "executando",
                 "2": "sobrecarga",
                 "3": "sobrecarga",
-                "14": "executando",
-                "15": "executando",
-                "16": "sobrecarga",
-                "17": "sobrecarga",
+                "4": "executando",
+                "5": "executando",
+                "6": "sobrecarga",
+                "7": "sobrecarga",
+                "8": "executando",
+                "9": "executando",
+                "10": "sobrecarga",
+                "11": "sobrecarga",
+                "12": "executando",
+                "13": "executando",
+                "14": "sobrecarga",
+                "15": "sobrecarga",
+                "16": "executando",
+                "17": "executando"
+            },
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 10,
+            "deadline": 0,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 18
+        },
+        {
+            "label": "B",
+            "grafico": {
                 "18": "executando",
                 "19": "executando",
                 "20": "sobrecarga",
@@ -25,80 +46,20 @@
                 "27": "executando",
                 "28": "sobrecarga",
                 "29": "sobrecarga",
-                "30": "executando"
+                "30": "executando",
+                "31": "executando",
+                "32": "sobrecarga",
+                "33": "sobrecarga",
+                "34": "executando",
+                "35": "executando"
             },
             "tempo_de_chegada": 0,
-            "tempo_de_execucao": 11,
-            "deadline": 7,
+            "tempo_de_execucao": 10,
+            "deadline": 1,
             "tempo_restante": 0,
             "falta_executar": false,
-            "tempo_total": 31
-        },
-        {
-            "label": "B",
-            "grafico": {
-                "44": "executando",
-                "45": "executando",
-                "46": "sobrecarga",
-                "47": "sobrecarga",
-                "48": "executando",
-                "49": "executando",
-                "50": "sobrecarga",
-                "51": "sobrecarga",
-                "52": "executando"
-            },
-            "tempo_de_chegada": 4,
-            "tempo_de_execucao": 5,
-            "deadline": 12,
-            "tempo_restante": 0,
-            "falta_executar": false,
-            "tempo_total": 49
-        },
-        {
-            "label": "C",
-            "grafico": {
-                "4": "executando",
-                "5": "executando",
-                "6": "sobrecarga",
-                "7": "sobrecarga",
-                "8": "executando",
-                "9": "executando",
-                "10": "sobrecarga",
-                "11": "sobrecarga",
-                "12": "executando",
-                "13": "executando"
-            },
-            "tempo_de_chegada": 4,
-            "tempo_de_execucao": 6,
-            "deadline": 4,
-            "tempo_restante": 0,
-            "falta_executar": false,
-            "tempo_total": 10
-        },
-        {
-            "label": "D",
-            "grafico": {
-                "31": "executando",
-                "32": "executando",
-                "33": "sobrecarga",
-                "34": "sobrecarga",
-                "35": "executando",
-                "36": "executando",
-                "37": "sobrecarga",
-                "38": "sobrecarga",
-                "39": "executando",
-                "40": "executando",
-                "41": "sobrecarga",
-                "42": "sobrecarga",
-                "43": "executando"
-            },
-            "tempo_de_chegada": 6,
-            "tempo_de_execucao": 7,
-            "deadline": 9,
-            "tempo_restante": 0,
-            "falta_executar": false,
-            "tempo_total": 38
+            "tempo_total": 36
         }
     ],
-    "tempo_medio": 32
+    "tempo_medio": 27
 }

@@ -334,7 +334,7 @@ class Escalonador {
             tempoTotal += processo.tempo_total;
         }
         this.processosData['tempo_medio'] = tempoTotal / this.num_processos;
-        this.print(this.processosData)
+        // this.print(this.processosData)
         return this.processosData;
     }
 

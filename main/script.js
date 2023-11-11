@@ -100,8 +100,53 @@ async function executar(algoritmo) {
     }
 
 
-    var jsonOutput = JSON.stringify(resultado);
+    // var jsonOutput = JSON.stringify(resultado);
     let tempo_medio = resultado.tempo_medio.toFixed(2);;
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
+
     
+    const chartContainer = document.getElementById('chartContainer');
+    let larguraTotal = 0;
+
+    let primeiroProcesso = true
+    for (const processo of resultado.processos) {
+        const processElement = document.createElement('div');
+        processElement.classList.add('process-bar');
+
+        const processLabel = document.createElement('div');
+        processLabel.classList.add('process-label');
+        processLabel.innerText = processo.label;
+
+        const barContainer = document.createElement('div');
+        barContainer.classList.add('bar-container');
+
+        for (const [tempo, status] of Object.entries(processo.grafico)) {
+            const bar = document.createElement('div');
+            bar.classList.add('bar');
+
+            if (status === 'executando') {
+                bar.classList.add('executing');
+            } else if (status === 'sobrecarga') {
+                bar.classList.add('overload');
+            }
+            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${tempo}</span>`;
+            bar.style.width = '30px';
+            bar.style.marginRight = '6px';
+            barContainer.appendChild(bar);
+
+            if (primeiroProcesso == false) {
+                larguraTotal = larguraTotal + 30 + 6
+            }
+        }
+
+        if (primeiroProcesso == false) {
+            barContainer.style.marginLeft = larguraTotal + 'px';
+        }
+
+        primeiroProcesso = false
+
+        processElement.appendChild(processLabel);
+        processElement.appendChild(barContainer);
+        chartContainer.appendChild(processElement);
+    }
 }

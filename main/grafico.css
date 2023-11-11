@@ -1,0 +1,36 @@
+
+.process-bar {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.process-label {
+    width: 60px;
+    text-align: center;
+}
+
+.bar-container {
+    flex-grow: 1;
+    display: flex;
+}
+
+.bar {
+    height: 100%;
+}
+
+/* styles.css */
+
+.executing {
+    background-color: green;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.overload {
+    background-color: red;
+    height: 30px;
+    border: 1px solid black;
+
+}
