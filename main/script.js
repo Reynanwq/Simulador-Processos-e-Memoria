@@ -17,10 +17,11 @@ function adicionarProcessos() {
             "tempo_execucao": 0
         });
 
+        var label = String.fromCharCode(65 + i);
         processosDetailsHTML += `
             <div class="row">
                 <div class="col">
-                    <h3>Processo ${i+1}</h3>
+                    <h3>Processo ${label}</h3>
                 </div>
                 <div class="col">
                     <label for="deadline_time_${i}">Deadline:</label>
