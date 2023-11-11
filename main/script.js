@@ -55,7 +55,8 @@ async function executar(algoritmo) {
     var data = {
         "sobrecarga": sobrecarga,
         "quantum": quantum,
-        "processos": []
+        "processos": [],
+        "grafico" : []
     };
 
     var num_processos = processosData.length;
@@ -99,54 +100,116 @@ async function executar(algoritmo) {
         resultado = escalonador.edf();
     }
 
-
-    // var jsonOutput = JSON.stringify(resultado);
     let tempo_medio = resultado.tempo_medio.toFixed(2);;
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
 
-    
-    const chartContainer = document.getElementById('chartContainer');
-    let larguraTotal = 0;
-
-    let primeiroProcesso = true
-    for (const processo of resultado.processos) {
-        const processElement = document.createElement('div');
-        processElement.classList.add('process-bar');
-
-        const processLabel = document.createElement('div');
-        processLabel.classList.add('process-label');
-        processLabel.innerText = processo.label;
-
-        const barContainer = document.createElement('div');
-        barContainer.classList.add('bar-container');
-
-        for (const [tempo, status] of Object.entries(processo.grafico)) {
-            const bar = document.createElement('div');
-            bar.classList.add('bar');
-
-            if (status === 'executando') {
-                bar.classList.add('executing');
-            } else if (status === 'sobrecarga') {
-                bar.classList.add('overload');
-            }
-            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${tempo}</span>`;
-            bar.style.width = '30px';
-            bar.style.marginRight = '6px';
-            barContainer.appendChild(bar);
-
-            if (primeiroProcesso == false) {
-                larguraTotal = larguraTotal + 30 + 6
-            }
-        }
-
-        if (primeiroProcesso == false) {
-            barContainer.style.marginLeft = larguraTotal + 'px';
-        }
-
-        primeiroProcesso = false
-
-        processElement.appendChild(processLabel);
-        processElement.appendChild(barContainer);
-        chartContainer.appendChild(processElement);
+    let grafico = resultado.grafico
+    let labels = []
+    for (const acao of grafico) {
+        labels.push(acao['label'])
     }
+    labels = [...new Set(labels)];
+
+    let larguraDaUltimaExecucao = {} // Contará quantas vezes um processo executou continuamente
+    let chartContainer = document.getElementById('chartContainer');
+    for (let label of labels) {
+        larguraDaUltimaExecucao[label] = 0
+        let divProcesso = document.createElement('div')
+        divProcesso.classList.add('process-bar')
+
+        let processLabel = document.createElement('div');
+        processLabel.classList.add('process-label');
+        processLabel.innerText = label;
+        processLabel.id = label + "label"
+
+        let containerAcoes = document.createElement('div')
+        containerAcoes.classList.add('bar-container')
+        containerAcoes.id = label
+
+        divProcesso.appendChild(processLabel)
+        divProcesso.appendChild(containerAcoes)
+        chartContainer.appendChild(divProcesso)
+    }
+    
+
+    let ultimoProcesso = null
+    let largura = 0
+    for (const [i, acao] of grafico.entries()) {
+        let containerAcoes = document.getElementById(acao['label'])
+        const bar = document.createElement('div');
+        bar.classList.add('bar');
+
+        if (acao['status'] === 'executando') {
+            bar.classList.add('executing');
+        } else if (acao['status'] === 'sobrecarga') {
+            bar.classList.add('overload');
+        }
+        bar.innerHTML = acao['tempo'];
+        bar.style.width = '30px';
+        containerAcoes.appendChild(bar);
+        largura = largura + 30
+
+        if (acao['label'] != ultimoProcesso) {
+            largura = largura - larguraDaUltimaExecucao[acao['label']]
+
+            if (larguraDaUltimaExecucao[acao['label']] > 0) {
+                larguraDaUltimaExecucao[acao['label']] = 0
+            }
+            bar.style.marginLeft = largura + 'px'
+        }
+        
+        ultimoProcesso = acao['label']
+        if (grafico[i + 1] != undefined && grafico[i + 1]['label'] != acao['label']) {
+        }
+        larguraDaUltimaExecucao[acao['label']] = larguraDaUltimaExecucao[acao['label']] + 30
+        console.log(JSON.stringify(larguraDaUltimaExecucao))
+
+    }
+
+
+    
+    // const chartContainer = document.getElementById('chartContainer');
+    // let larguraTotal = 0;
+
+    // let primeiroProcesso = true
+    // for (const processo of resultado.processos) {
+    //     const processElement = document.createElement('div');
+    //     processElement.classList.add('process-bar');
+
+    //     const processLabel = document.createElement('div');
+    //     processLabel.classList.add('process-label');
+    //     processLabel.innerText = processo.label;
+
+    //     const barContainer = document.createElement('div');
+    //     barContainer.classList.add('bar-container');
+
+    //     for (const [tempo, status] of Object.entries(processo.grafico)) {
+    //         const bar = document.createElement('div');
+    //         bar.classList.add('bar');
+
+    //         if (status === 'executando') {
+    //             bar.classList.add('executing');
+    //         } else if (status === 'sobrecarga') {
+    //             bar.classList.add('overload');
+    //         }
+    //         bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${tempo}</span>`;
+    //         bar.style.width = '30px';
+    //         bar.style.marginRight = '6px';
+    //         barContainer.appendChild(bar);
+
+    //         if (primeiroProcesso == false) {
+    //             larguraTotal = larguraTotal + 30 + 6
+    //         }
+    //     }
+
+    //     if (primeiroProcesso == false) {
+    //         barContainer.style.marginLeft = larguraTotal + 'px';
+    //     }
+
+    //     primeiroProcesso = false
+
+    //     processElement.appendChild(processLabel);
+    //     processElement.appendChild(barContainer);
+    //     chartContainer.appendChild(processElement);
+    // }
 }
