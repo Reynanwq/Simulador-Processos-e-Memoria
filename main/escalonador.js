@@ -1,3 +1,4 @@
+import { Memory } from './memory.js';
 class Escalonador {
 
     constructor(processosData) {
@@ -27,6 +28,11 @@ class Escalonador {
 
         this.cpu = []
         this.fila = []
+
+        const pageSize = 4; // cada página tem 4K de tamanho
+        const ramSize = 5; // a RAM tem 5 páginas
+        const diskSize = 10; // o Disco tem 10 páginas
+        this.memory = new Memory('RAM', ramSize, pageSize, ramSize, diskSize);
     }
 
     /*************************************************************************************
@@ -95,7 +101,7 @@ class Escalonador {
         }
 
         this.num_processos_executados++
-        this.processosData.processos = this.processos
+            this.processosData.processos = this.processos
     }
 
     /*************************************************************************************
@@ -106,7 +112,7 @@ class Escalonador {
 
     sjf() {
         let processos = this.processos
-        
+
         while (this.num_processos_executados < this.num_processos) {
             for (const processo of processos) {
                 console.log(processo.label + " " + processo.tempo_de_chegada + " " + this.timerSJF)
@@ -182,7 +188,7 @@ class Escalonador {
         }
 
         this.num_processos_executados++
-        this.processosData.processos = this.processos
+            this.processosData.processos = this.processos
 
         // Retira processo da fila de prontos, pois acabou de ser executado
         this.fila = this.fila.filter(p => p.label !== label);
@@ -204,11 +210,11 @@ class Escalonador {
         while (this.num_processos_executados < this.num_processos) {
             for (const processo of processos) {
                 if (
-                    (processo.tempo_de_chegada == this.timerRR && processo.tempo_restante > 0)
-                    || processo.falta_executar == true
-                    ) {
+                    (processo.tempo_de_chegada == this.timerRR && processo.tempo_restante > 0) ||
+                    processo.falta_executar == true
+                ) {
                     this.fila.push(processo)
-                    // console.log('t: ' + this.tempoAtual + ' processo: ' + processo.label)
+                        // console.log('t: ' + this.tempoAtual + ' processo: ' + processo.label)
                     this.executaRoundRobin(processo)
                 }
             }
@@ -236,12 +242,12 @@ class Escalonador {
             processo.tempo_restante = processo.tempo_restante - 1
             this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
             this.tempoAtual++
-            this.timerRR++
+                this.timerRR++
         }
 
         if (processo.tempo_restante <= 0) {
             this.num_processos_executados++
-            processo.falta_executar = false
+                processo.falta_executar = false
         } else {
             processo.falta_executar = true
 
@@ -252,11 +258,11 @@ class Escalonador {
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
                 this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++
-                this.timerRR++
+                    this.timerRR++
             }
         }
 
-        
+
         const label = processo.label
         for (let i = 0; i < this.processos.length; i++) {
             if (this.processos[i].label == label) {
@@ -312,7 +318,7 @@ class Escalonador {
         }
 
         let processos = this.processos
-        
+
         while (this.num_processos_executados < this.num_processos) {
             for (const processo of processos) {
                 if (processo.tempo_de_chegada <= this.timerEDF && processo.tempo_restante > 0) {
@@ -328,7 +334,7 @@ class Escalonador {
             this.timerEDF++;
         }
 
-        
+
         let tempoTotal = 0;
         for (const processo of this.processos) {
             tempoTotal += processo.tempo_total;
@@ -350,12 +356,12 @@ class Escalonador {
             this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
 
             this.tempoAtual++
-            this.timerEDF++
+                this.timerEDF++
         }
 
         if (processo.tempo_restante <= 0) {
             this.num_processos_executados++
-            processo.falta_executar = false
+                processo.falta_executar = false
         } else {
             processo.falta_executar = true
 
@@ -366,11 +372,11 @@ class Escalonador {
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
                 this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++
-                this.timerEDF++
+                    this.timerEDF++
             }
         }
 
-        
+
         const label = processo.label
         for (let i = 0; i < this.processos.length; i++) {
             if (this.processos[i].label == label) {
@@ -402,9 +408,20 @@ class Escalonador {
         }
         this.tempoAtualEDFFoiInicializado = true
     }
-    
+
 
     print(data) {
         console.log(JSON.stringify(data))
+    }
+
+    pageReplacement(processName, pageNum) {
+        // Verifica se a página já está carregada na RAM
+        if (this.memory.isPageLoaded(processName, pageNum)) {
+            console.log(`Página ${processName}:${pageNum} já está carregada na RAM.`);
+        } else {
+            // Se não estiver carregada, realiza a carga
+            this.memory.loadPage(processName, pageNum);
+            console.log(`Página ${processName}:${pageNum} carregada na RAM.`);
+        }
     }
 }

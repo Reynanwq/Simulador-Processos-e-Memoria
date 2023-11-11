@@ -1,5 +1,17 @@
-var processosData = [];
+import { Escalonador } from './escalonador.js';
+import { Memory } from './memory.js';
 
+var processosData = [];
+const escalonador = new Escalonador(processosData);
+
+// Executando os algoritmos de substituição de página usando o escalonador
+escalonador.pageReplacement('Process1', 0);
+escalonador.pageReplacement('Process1', 1);
+escalonador.pageReplacement('Process2', 0);
+
+// Imprimindo o status da memória
+escalonador.memory.printMemoryStatus();
+escalonador.memory.printRealTimeUsage();
 
 function adicionarProcessos() {
     var num_processos = parseInt(document.getElementById('num_processos').value);
@@ -70,7 +82,7 @@ async function executar(algoritmo) {
         processosData[i].tempo_execucao = execucao;
     }
 
-    
+
     for (var i = 0; i < num_processos; i++) {
         var label = String.fromCharCode(65 + i);
         var atributos = {
@@ -99,9 +111,10 @@ async function executar(algoritmo) {
         resultado = escalonador.edf();
     }
 
+    escalonador.pageReplacement('ProcessoA', 1);
 
     var jsonOutput = JSON.stringify(resultado);
     let tempo_medio = resultado.tempo_medio.toFixed(2);;
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
-    
+
 }
