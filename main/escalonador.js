@@ -82,7 +82,7 @@ class Escalonador {
         let iteracao_final = tempo_execucao + this.tempoAtual
 
         while (this.tempoAtual <= iteracao_final) {
-            processo.grafico[this.tempoAtual] = 'executando'
+            this.processosData.grafico.push({'tempo': this.tempoAtual, 'label': processo.label, 'status': 'executando'})
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             this.tempoAtual++
         }
@@ -168,7 +168,7 @@ class Escalonador {
         let iteracao_final = tempo_execucao + this.tempoAtual
 
         while (this.tempoAtual <= iteracao_final) {
-            processo.grafico[this.tempoAtual] = 'executando'
+            this.processosData.grafico.push({'tempo': this.tempoAtual, 'label': processo.label, 'status': 'executando'})
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             this.verificarSeAlgumProcessoPrecisaEntrarNaFila(this.tempoAtual, processo.label)
             this.tempoAtual++
@@ -232,7 +232,6 @@ class Escalonador {
 
         while (this.tempoAtual <= iteracao_final_da_execucao && processo.tempo_restante > 0) {
             this.processosData.grafico.push({'tempo': this.tempoAtual, 'label': processo.label, 'status': 'executando'})
-            processo.grafico[this.tempoAtual] = 'executando'
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             processo.tempo_restante = processo.tempo_restante - 1
             this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
@@ -250,8 +249,6 @@ class Escalonador {
 
             while (this.tempoAtual <= iteracao_final_da_sobrecarga) {
                 this.processosData.grafico.push({'tempo': this.tempoAtual, 'label': processo.label, 'status': 'sobrecarga'})
-
-                processo.grafico[this.tempoAtual] = 'sobrecarga'
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
                 this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++
@@ -348,7 +345,6 @@ class Escalonador {
 
         while (this.tempoAtual <= iteracao_final_da_execucao && processo.tempo_restante > 0) {
             this.processosData.grafico.push({'tempo': this.tempoAtual, 'label': processo.label, 'status': 'executando'})
-            processo.grafico[this.tempoAtual] = 'executando'
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             processo.tempo_restante = processo.tempo_restante - 1
             this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
@@ -367,7 +363,6 @@ class Escalonador {
 
             while (this.tempoAtual <= iteracao_final_da_sobrecarga) {
                 this.processosData.grafico.push({'tempo': this.tempoAtual, 'label': processo.label, 'status': 'sobrecarga'})
-                processo.grafico[this.tempoAtual] = 'sobrecarga'
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
                 this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++

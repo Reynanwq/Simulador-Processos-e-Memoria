@@ -101,6 +101,8 @@ async function executar(algoritmo) {
         resultado = escalonador.edf();
     }
 
+
+
     let tempo_medio = resultado.tempo_medio.toFixed(2);;
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
 
@@ -113,6 +115,7 @@ async function executar(algoritmo) {
 
     let larguraDaUltimaExecucao = {} // Contará quantas vezes um processo executou continuamente
     let chartContainer = document.getElementById('chartContainer');
+    chartContainer.innerHTML = "";
     for (let label of labels) {
         larguraDaUltimaExecucao[label] = 0
         let divProcesso = document.createElement('div')
@@ -163,8 +166,6 @@ async function executar(algoritmo) {
         
         ultimoProcesso = acao['label']
         larguraDaUltimaExecucao[acao['label']] = larguraDaUltimaExecucao[acao['label']] + 30
-        console.log(JSON.stringify(larguraDaUltimaExecucao))
-
     }
 
 
