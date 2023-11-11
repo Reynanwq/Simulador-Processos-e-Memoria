@@ -145,8 +145,10 @@ async function executar(algoritmo) {
             bar.classList.add('overload');
         }
         bar.innerHTML = acao['tempo'];
+        
         bar.style.width = '30px';
         containerAcoes.appendChild(bar);
+
         largura = largura + 30
 
         if (acao['label'] != ultimoProcesso) {
@@ -155,12 +157,10 @@ async function executar(algoritmo) {
             if (larguraDaUltimaExecucao[acao['label']] > 0) {
                 larguraDaUltimaExecucao[acao['label']] = 0
             }
-            bar.style.marginLeft = largura + 'px'
+            bar.style.marginLeft = largura - 30 + 'px'
         }
         
         ultimoProcesso = acao['label']
-        if (grafico[i + 1] != undefined && grafico[i + 1]['label'] != acao['label']) {
-        }
         larguraDaUltimaExecucao[acao['label']] = larguraDaUltimaExecucao[acao['label']] + 30
         console.log(JSON.stringify(larguraDaUltimaExecucao))
 
