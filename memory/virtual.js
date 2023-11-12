@@ -1,4 +1,4 @@
-// VirtualMemoryWindow.js
+/*implementa uma janela de visualização da memória virtual em um ambiente web. A classe VirtualMemoryWindow cria uma interface com quatro listas verticais, representando informações sobre processos na memória virtual, como Process ID, Memória Virtual, Endereço Real e Último Acesso. A janela inclui uma barra de rolagem vertical que sincroniza o deslocamento das listas. Além disso, há um campo de entrada que permite filtrar os processos exibidos na tabela com base no ID do processo. O código adiciona essa janela ao corpo do documento HTML quando a página é carregada, criando uma instância da classe VirtualMemoryWindow.*/
 class VirtualMemoryWindow {
     constructor(container, title = "Window", size = [600, 600]) {
         this.size = size;

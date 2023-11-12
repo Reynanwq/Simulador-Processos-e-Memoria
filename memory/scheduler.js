@@ -1,3 +1,4 @@
+/*Este código define classes para diferentes políticas de escalonamento de processos e um gerenciador de memória. As classes de escalonamento incluem FIFO (First In First Out), Round Robin (RR), SJF (Shortest Job First), e EDF (Earliest Deadline First). Cada classe de escalonamento possui métodos para adicionar, remover e executar processos. O gerenciador de memória implementa uma política FIFO para alocar e utilizar memória virtual em um sistema simulado.*/
 class FIFOProcessScheduler {
     get name() {
         return "First In First Out (FIFO)";

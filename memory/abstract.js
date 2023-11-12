@@ -1,3 +1,5 @@
+/*implementa um gerenciador de memória simplificado que simula a alocação e desalocação de páginas de memória virtual em um sistema operacional. Ele possui métodos para alocar e liberar memória para processos, verificar falhas de página, e manter tabelas de mapeamento entre memória virtual e real. O código também controla o uso e atualização de informações sobre as páginas de memória alocadas.*/
+
 class MemoryManager {
     constructor(ramMemorySize, pageSize, pagePerProcess = null) {
         this.ramMemorySize = ramMemorySize;

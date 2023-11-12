@@ -1,3 +1,5 @@
+/*implementa um gerenciador de memória LRU (Least Recently Used). Ele simula a alocação e desalocação de páginas de memória virtual em um sistema operacional. O gerenciador mantém tabelas de mapeamento entre memória virtual e real, e utiliza a política LRU para decidir quais páginas substituir quando a RAM está cheia. O código inclui métodos para alocar memória para processos, utilizar páginas na RAM e definir páginas reais na RAM, seguindo a lógica LRU baseada em contadores de uso.*/
+
 class LRUMemoryManager {
     constructor() {
         this.virtualMemoryTable = {};

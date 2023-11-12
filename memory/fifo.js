@@ -1,3 +1,5 @@
+/* Implementa um gerenciador de memória FIFO (First In First Out). Ele simula a alocação e desalocação de páginas de memória virtual em um sistema operacional. O gerenciador mantém tabelas de mapeamento entre memória virtual e real, e utiliza a política FIFO para decidir quais páginas substituir quando a RAM está cheia. O código inclui métodos para alocar memória para processos, utilizar páginas na RAM e definir páginas reais na RAM, seguindo a lógica FIFO.*/
+
 class FIFOMemoryManager {
     constructor() {
         this.virtualMemoryTable = {};

@@ -1,4 +1,4 @@
-// RealMemoryWindow.js
+/*Este código implementa uma janela de visualização de memória real em um ambiente web. A classe `RealMemoryWindow` cria uma janela com quatro listas verticais, representando diferentes aspectos da memória real, como endereço real, Process ID, endereço virtual e último acesso. A janela inclui uma barra de rolagem vertical que sincroniza o deslocamento das listas. O código também adiciona essa janela ao corpo do documento HTML quando a página é carregada, criando uma instância da classe `RealMemoryWindow.*/
 class RealMemoryWindow {
     constructor(container, title = "Window", size = [600, 600]) {
         this.size = size;
