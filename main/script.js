@@ -77,7 +77,6 @@ async function executar(algoritmo) {
         var label = String.fromCharCode(65 + i);
         var atributos = {
             "label": label,
-            "grafico": {},
             "tempo_de_chegada": processosData[i].tempo_chegada,
             "tempo_de_execucao": processosData[i].tempo_execucao
         }
@@ -101,7 +100,7 @@ async function executar(algoritmo) {
         resultado = escalonador.edf();
     }
 
-
+    console.log(JSON.stringify(resultado))
 
     let tempo_medio = resultado.tempo_medio.toFixed(2);;
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
@@ -148,9 +147,15 @@ async function executar(algoritmo) {
         } else if (acao['status'] === 'sobrecarga') {
             bar.classList.add('overload');
         }
-        bar.innerHTML = acao['tempo'];
         
-        bar.style.width = '30px';
+        if (acao['tempo'] >= acao['tempo_estouro_deadline']) {
+            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo'] + ' X'}</span>`;
+        } else {
+            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo']}</span>`;
+        }
+        
+        
+        bar.style.width = '40px';
         containerAcoes.appendChild(bar);
 
         largura = largura + 30
@@ -168,50 +173,4 @@ async function executar(algoritmo) {
         larguraDaUltimaExecucao[acao['label']] = larguraDaUltimaExecucao[acao['label']] + 30
     }
 
-
-    
-    // const chartContainer = document.getElementById('chartContainer');
-    // let larguraTotal = 0;
-
-    // let primeiroProcesso = true
-    // for (const processo of resultado.processos) {
-    //     const processElement = document.createElement('div');
-    //     processElement.classList.add('process-bar');
-
-    //     const processLabel = document.createElement('div');
-    //     processLabel.classList.add('process-label');
-    //     processLabel.innerText = processo.label;
-
-    //     const barContainer = document.createElement('div');
-    //     barContainer.classList.add('bar-container');
-
-    //     for (const [tempo, status] of Object.entries(processo.grafico)) {
-    //         const bar = document.createElement('div');
-    //         bar.classList.add('bar');
-
-    //         if (status === 'executando') {
-    //             bar.classList.add('executing');
-    //         } else if (status === 'sobrecarga') {
-    //             bar.classList.add('overload');
-    //         }
-    //         bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${tempo}</span>`;
-    //         bar.style.width = '30px';
-    //         bar.style.marginRight = '6px';
-    //         barContainer.appendChild(bar);
-
-    //         if (primeiroProcesso == false) {
-    //             larguraTotal = larguraTotal + 30 + 6
-    //         }
-    //     }
-
-    //     if (primeiroProcesso == false) {
-    //         barContainer.style.marginLeft = larguraTotal + 'px';
-    //     }
-
-    //     primeiroProcesso = false
-
-    //     processElement.appendChild(processLabel);
-    //     processElement.appendChild(barContainer);
-    //     chartContainer.appendChild(processElement);
-    // }
 }

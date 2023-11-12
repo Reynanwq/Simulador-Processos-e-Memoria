@@ -6,6 +6,11 @@
     margin-bottom: 10px;
 }
 
+.bar span {
+    font-weight: bold;
+    
+}
+
 .process-label {
     width: 60px;
     text-align: center;
