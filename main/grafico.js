@@ -33,6 +33,7 @@ class Grafico {
 
         let ultimoProcesso = null
         let largura = 0
+        let timeout = 1000
         for (const [i, acao] of grafico.entries()) {
             let containerAcoes = document.getElementById(acao['label'])
             const bar = document.createElement('div');
@@ -49,9 +50,13 @@ class Grafico {
             } else {
                 bar.innerHTML = acao['tempo']
             }
-
+            
             bar.style.width = '40px';
-            containerAcoes.appendChild(bar);
+            setTimeout(() => {
+                containerAcoes.appendChild(bar);
+            }, timeout);
+            timeout = timeout + 1000
+            
 
             largura = largura + 40
 

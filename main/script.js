@@ -103,6 +103,11 @@ async function executar(algoritmo) {
 
     let tempo_medio = resultado.tempo_medio.toFixed(2);
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
+    
+    let memoria = new Memoria()
+    memoria.criarMemoriaRam()
+    memoria.criarDisco()
+
     Grafico.gerarLabels(algoritmo)
     Grafico.gerarGrafico(resultado)
 
