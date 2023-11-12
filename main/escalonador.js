@@ -1,6 +1,6 @@
 class Escalonador {
 
-    constructor(processosData) {
+    constructor(processosData, memoryManager) {
         this.processosData = processosData
         this.processos = processosData.processos
 
@@ -27,6 +27,8 @@ class Escalonador {
 
         this.cpu = []
         this.fila = []
+
+        this.memoryManager = memoryManager;
     }
 
     /*************************************************************************************
@@ -51,25 +53,26 @@ class Escalonador {
      ************************************************************************************/
 
     async fifo(result) {
-        let processos = this.processos
-        let timer = 0
+        let processos = this.processos;
+        let timer = 0;
+
         while (this.num_processos_executados < this.num_processos) {
             for (const processo of processos) {
                 if (processo.tempo_de_chegada == timer) {
-                    this.executaFIFO(processo)
+                    this.executaFIFO(processo);
                 }
             }
-            timer++
+            timer++;
         }
 
-        let tempoTotal = 0
+        let tempoTotal = 0;
         for (const processo of this.processos) {
-            tempoTotal += processo.tempo_total
+            tempoTotal += processo.tempo_total;
         }
-        this.processosData['tempo_medio'] = tempoTotal / this.num_processos
-        this.num_processos_executados = 0
-        return this.processosData;
+        this.processosData['tempo_medio'] = tempoTotal / this.num_processos;
+        this.num_processos_executados = 0;
 
+        return this.processosData;
     }
 
     /**
@@ -95,7 +98,7 @@ class Escalonador {
         }
 
         this.num_processos_executados++
-        this.processosData.processos = this.processos
+            this.processosData.processos = this.processos
     }
 
     /*************************************************************************************
@@ -168,7 +171,7 @@ class Escalonador {
         let iteracao_final = tempo_execucao + this.tempoAtual
 
         while (this.tempoAtual <= iteracao_final) {
-            this.processosData.grafico.push({ 'tempo': this.tempoAtual, 'label': processo.label, 'status': 'executando'})
+            this.processosData.grafico.push({ 'tempo': this.tempoAtual, 'label': processo.label, 'status': 'executando' })
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             this.verificarSeAlgumProcessoPrecisaEntrarNaFila(this.tempoAtual, processo.label)
             this.tempoAtual++
@@ -182,7 +185,7 @@ class Escalonador {
         }
 
         this.num_processos_executados++
-        this.processosData.processos = this.processos
+            this.processosData.processos = this.processos
 
         // Retira processo da fila de prontos, pois acabou de ser executado
         this.fila = this.fila.filter(p => p.label !== label);
@@ -204,11 +207,11 @@ class Escalonador {
         while (this.num_processos_executados < this.num_processos) {
             for (const processo of processos) {
                 if (
-                    (processo.tempo_de_chegada == this.timerRR && processo.tempo_restante > 0)
-                    || processo.falta_executar == true
+                    (processo.tempo_de_chegada == this.timerRR && processo.tempo_restante > 0) ||
+                    processo.falta_executar == true
                 ) {
                     this.fila.push(processo)
-                    // console.log('t: ' + this.tempoAtual + ' processo: ' + processo.label)
+                        // console.log('t: ' + this.tempoAtual + ' processo: ' + processo.label)
                     this.executaRoundRobin(processo)
                 }
             }
@@ -221,7 +224,7 @@ class Escalonador {
         }
         this.processosData['tempo_medio'] = tempoTotal / this.num_processos
         this.num_processos_executados = 0
-        // this.print(this.processosData)
+            // this.print(this.processosData)
         return this.processosData;
     }
 
@@ -236,12 +239,12 @@ class Escalonador {
             processo.tempo_restante = processo.tempo_restante - 1
             this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
             this.tempoAtual++
-            this.timerRR++
+                this.timerRR++
         }
 
         if (processo.tempo_restante <= 0) {
             this.num_processos_executados++
-            processo.falta_executar = false
+                processo.falta_executar = false
         } else {
             processo.falta_executar = true
 
@@ -252,7 +255,7 @@ class Escalonador {
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
                 this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++
-                this.timerRR++
+                    this.timerRR++
             }
         }
 
@@ -352,43 +355,39 @@ class Escalonador {
         let iteracao_final_da_execucao = this.quantum + this.tempoAtual - 1
 
         while (this.tempoAtual <= iteracao_final_da_execucao && processo.tempo_restante > 0) {
-            this.processosData.grafico.push(
-                {
-                    'tempo': this.tempoAtual,
-                    'label': processo.label,
-                    'status': 'executando',
-                    'tempo_estouro_deadline': processo['tempo_estouro_deadline']
-                }
-            )
+            this.processosData.grafico.push({
+                'tempo': this.tempoAtual,
+                'label': processo.label,
+                'status': 'executando',
+                'tempo_estouro_deadline': processo['tempo_estouro_deadline']
+            })
             processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
             processo.tempo_restante = processo.tempo_restante - 1
             this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
 
             this.tempoAtual++
-            this.timerEDF++
+                this.timerEDF++
         }
 
         if (processo.tempo_restante <= 0) {
             this.num_processos_executados++
-            processo.falta_executar = false
+                processo.falta_executar = false
         } else {
             processo.falta_executar = true
 
             let iteracao_final_da_sobrecarga = this.sobrecarga + this.tempoAtual - 1
 
             while (this.tempoAtual <= iteracao_final_da_sobrecarga) {
-                this.processosData.grafico.push(
-                    {
-                        'tempo': this.tempoAtual,
-                        'label': processo.label,
-                        'status': 'sobrecarga',
-                        'tempo_estouro_deadline': processo['tempo_estouro_deadline']
-                    }
-                )
+                this.processosData.grafico.push({
+                    'tempo': this.tempoAtual,
+                    'label': processo.label,
+                    'status': 'sobrecarga',
+                    'tempo_estouro_deadline': processo['tempo_estouro_deadline']
+                })
                 processo.tempo_total = this.tempoAtual - processo.tempo_de_chegada + 1
                 this.verificarSeAlgumProcessoPrecisaEntrarNaFilaAlgoritmoNaoPreemptivo(this.tempoAtual, processo.label)
                 this.tempoAtual++
-                this.timerEDF++
+                    this.timerEDF++
             }
         }
 

@@ -173,7 +173,7 @@ async function executar(algoritmo) {
         }
 
         if (acao['tempo'] >= acao['tempo_estouro_deadline']) {
-            bar.innerHTML =acao['tempo'] + ' X'
+            bar.innerHTML = acao['tempo'] + ' X'
         } else {
             bar.innerHTML = acao['tempo']
         }
