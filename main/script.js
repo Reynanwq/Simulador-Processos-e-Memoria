@@ -57,7 +57,7 @@ async function executar(algoritmo) {
         "sobrecarga": sobrecarga,
         "quantum": quantum,
         "processos": [],
-        "grafico" : []
+        "grafico": []
     };
 
     var num_processos = processosData.length;
@@ -72,7 +72,7 @@ async function executar(algoritmo) {
         processosData[i].tempo_execucao = execucao;
     }
 
-    
+
     for (var i = 0; i < num_processos; i++) {
         var label = String.fromCharCode(65 + i);
         var atributos = {
@@ -100,10 +100,34 @@ async function executar(algoritmo) {
         resultado = escalonador.edf();
     }
 
-    console.log(JSON.stringify(resultado))
+    // console.log(JSON.stringify(resultado))
 
-    let tempo_medio = resultado.tempo_medio.toFixed(2);;
+    let tempo_medio = resultado.tempo_medio.toFixed(2);
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
+    document.getElementById('labels').innerHTML = ""
+
+    // Criação da div principal
+    document.getElementById('labels').innerHTML += `
+    <div class="d-flex" id="flex-labels">
+        <div class="alert alert-success" style="width: 330px; margin-right: 10px;">
+            <strong>Verde:</strong> Executando
+        </div>
+        <div class="alert alert-danger" style="width: 330px; margin-right: 10px;">
+            <strong>Vermelho:</strong> Sobrecarga
+        </div>
+    </div>`;
+
+    // Adição da div adicional para EDF (se necessário)
+    if (algoritmo == 'EDF') {
+        document.getElementById('flex-labels').innerHTML += `
+        <div class="alert alert-warning" style="width: 330px;">
+            <strong>X:</strong> Deadline já ultrapassada
+        </div>
+    `;
+    }
+
+
+
 
     let grafico = resultado.grafico
     let labels = []
@@ -112,7 +136,7 @@ async function executar(algoritmo) {
     }
     labels = [...new Set(labels)];
 
-    let larguraDaUltimaExecucao = {} // Contará quantas vezes um processo executou continuamente
+    let larguraDaUltimaExecucao = {}
     let chartContainer = document.getElementById('chartContainer');
     chartContainer.innerHTML = "";
     for (let label of labels) {
@@ -133,7 +157,7 @@ async function executar(algoritmo) {
         divProcesso.appendChild(containerAcoes)
         chartContainer.appendChild(divProcesso)
     }
-    
+
 
     let ultimoProcesso = null
     let largura = 0
@@ -147,18 +171,18 @@ async function executar(algoritmo) {
         } else if (acao['status'] === 'sobrecarga') {
             bar.classList.add('overload');
         }
-        
+
         if (acao['tempo'] >= acao['tempo_estouro_deadline']) {
-            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo'] + ' X'}</span>`;
+            bar.innerHTML = acao['tempo'] + ' X'
         } else {
-            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo']}</span>`;
+            bar.innerHTML = acao['tempo']
         }
-        
-        
+
+
         bar.style.width = '40px';
         containerAcoes.appendChild(bar);
 
-        largura = largura + 30
+        largura = largura + 40
 
         if (acao['label'] != ultimoProcesso) {
             largura = largura - larguraDaUltimaExecucao[acao['label']]
@@ -166,11 +190,11 @@ async function executar(algoritmo) {
             if (larguraDaUltimaExecucao[acao['label']] > 0) {
                 larguraDaUltimaExecucao[acao['label']] = 0
             }
-            bar.style.marginLeft = largura - 30 + 'px'
+            bar.style.marginLeft = largura - 40 + 'px'
         }
-        
+
         ultimoProcesso = acao['label']
-        larguraDaUltimaExecucao[acao['label']] = larguraDaUltimaExecucao[acao['label']] + 30
+        larguraDaUltimaExecucao[acao['label']] = larguraDaUltimaExecucao[acao['label']] + 40
     }
 
 }
