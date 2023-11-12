@@ -178,7 +178,6 @@ async function executar(algoritmo) {
             bar.innerHTML = acao['tempo']
         }
 
-
         bar.style.width = '40px';
         containerAcoes.appendChild(bar);
 

@@ -6,6 +6,9 @@
     margin-bottom: 10px;
 }
 
+.textoCentralizado {
+    text-align: center;
+}
 .chartContainer {
     background-color: aliceblue;
 }
