@@ -173,9 +173,9 @@ async function executar(algoritmo) {
         }
 
         if (acao['tempo'] >= acao['tempo_estouro_deadline']) {
-            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo'] + ' X'}</span>`;
+            bar.innerHTML =acao['tempo'] + ' X'
         } else {
-            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo']}</span>`;
+            bar.innerHTML = acao['tempo']
         }
 
 
