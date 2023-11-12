@@ -25,7 +25,7 @@ function adicionarProcessos() {
                 </div>
                 <div class="col">
                     <label for="deadline_time_${i}">Deadline:</label>
-                    <input type="number" id="deadline_time_${i}", value="${i}" class="form-control">
+                    <input type="number" id="deadline_time_${i}", value="${10 + i}" class="form-control">
                 </div>
                 <div class="col">
                     <label for="time_chegada_${i}">Tempo de chegada:</label>
@@ -173,9 +173,9 @@ async function executar(algoritmo) {
         }
 
         if (acao['tempo'] >= acao['tempo_estouro_deadline']) {
-            bar.innerHTML = acao['tempo'] + ' X'
+            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo'] + ' X'}</span>`;
         } else {
-            bar.innerHTML = acao['tempo']
+            bar.innerHTML = `<span style="display: inline-block; text-align: center; width: 100%;">${acao['tempo']}</span>`;
         }
 
 

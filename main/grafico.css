@@ -6,6 +6,10 @@
     margin-bottom: 10px;
 }
 
+.chartContainer {
+    background-color: aliceblue;
+}
+
 .bar span {
     font-weight: bold;
     
