@@ -56,9 +56,6 @@ class Grafico {
             bar.style.width = '40px';
             
             await setTimeout(() => {
-                // if (acao['label'] == 'G') {
-                //     console.log(JSON.stringify(memoria.ram))
-                // }
                 let processoEstaNaRam = memoria.verificaSeProcessoEstaNaRam(acao['label'])
                 if (processoEstaNaRam == false) {
                     memoria.colocarPaginasDoProcessoNaRam(algoritmoTrocaPaginas, acao['label'])
