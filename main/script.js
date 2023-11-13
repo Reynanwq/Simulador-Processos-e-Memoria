@@ -35,6 +35,10 @@ function adicionarProcessos() {
                     <label for="execucao_tempo_${i}">Tempo de execução:</label>
                     <input type="number" id="execucao_tempo_${i}", value="10" class="form-control">
                 </div>
+                <div class="col">
+                    <label for="numero_paginas_${i}">N° de Páginas:</label>
+                    <input type="number" id="numero_paginas_${i}", value="10" class="form-control">
+                </div>
             </div>
         `;
     }
@@ -66,10 +70,12 @@ async function executar(algoritmo) {
         var deadline = parseInt(document.getElementById(`deadline_time_${i}`).value);
         var chegada = parseInt(document.getElementById(`time_chegada_${i}`).value);
         var execucao = parseInt(document.getElementById(`execucao_tempo_${i}`).value);
+        var paginas = parseInt(document.getElementById(`numero_paginas_${i}`).value);
 
         processosData[i].deadline = deadline;
         processosData[i].tempo_chegada = chegada;
         processosData[i].tempo_execucao = execucao;
+        processosData[i].paginas = paginas
     }
 
 
@@ -78,7 +84,8 @@ async function executar(algoritmo) {
         var atributos = {
             "label": label,
             "tempo_de_chegada": processosData[i].tempo_chegada,
-            "tempo_de_execucao": processosData[i].tempo_execucao
+            "tempo_de_execucao": processosData[i].tempo_execucao,
+            "paginas": processosData[i].paginas
         }
         if (algoritmo === 'EDF') {
             atributos["deadline"] = processosData[i].deadline
@@ -100,16 +107,23 @@ async function executar(algoritmo) {
         resultado = escalonador.edf();
     }
 
+    // console.log(JSON.stringify(resultado))
+
 
     let tempo_medio = resultado.tempo_medio.toFixed(2);
     document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
+
+
+    var algoritmoTrocaPaginas = document.getElementById('algoritmo_troca').value;
     
-    let memoria = new Memoria()
+
+    let memoria = new Memoria(resultado.processos)
     memoria.criarMemoriaRam()
     memoria.criarDisco()
+    await memoria.adicionarPaginasNoDisco(resultado.processos)
 
     Grafico.gerarLabels(algoritmo)
-    Grafico.gerarGrafico(resultado)
+    await Grafico.gerarGrafico(resultado, algoritmoTrocaPaginas, memoria)
 
 
     

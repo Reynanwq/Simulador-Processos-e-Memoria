@@ -1,6 +1,7 @@
 class Grafico {
 
-    static gerarGrafico(resultado) {
+    static async gerarGrafico(resultado, algoritmoTrocaPaginas, memoria) {
+        
         let grafico = resultado.grafico
         let labels = []
         for (const acao of grafico) {
@@ -33,7 +34,7 @@ class Grafico {
 
         let ultimoProcesso = null
         let largura = 0
-        let timeout = 1000
+        let timeout = 50
         for (const [i, acao] of grafico.entries()) {
             let containerAcoes = document.getElementById(acao['label'])
             const bar = document.createElement('div');
@@ -51,11 +52,21 @@ class Grafico {
                 bar.innerHTML = acao['tempo']
             }
             
+
             bar.style.width = '40px';
-            setTimeout(() => {
+            
+            await setTimeout(() => {
+                // if (acao['label'] == 'G') {
+                //     console.log(JSON.stringify(memoria.ram))
+                // }
+                let processoEstaNaRam = memoria.verificaSeProcessoEstaNaRam(acao['label'])
+                if (processoEstaNaRam == false) {
+                    memoria.colocarPaginasDoProcessoNaRam(algoritmoTrocaPaginas, acao['label'])
+                }
+    
                 containerAcoes.appendChild(bar);
             }, timeout);
-            timeout = timeout + 1000
+            timeout = timeout + 200
             
 
             largura = largura + 40
