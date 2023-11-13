@@ -115,12 +115,17 @@ async function executar(algoritmo) {
 
 
     var algoritmoTrocaPaginas = document.getElementById('algoritmo_troca').value;
-    
+
 
     let memoria = new Memoria(resultado.processos)
-    memoria.criarMemoriaRam()
-    // memoria.criarDisco()
-    // await memoria.adicionarPaginasNoDisco(resultado.processos)
+
+    try {
+        memoria.criarMemoriaRam()
+        // memoria.criarDisco()
+        // await memoria.adicionarPaginasNoDisco(resultado.processos)
+    } catch (error) {
+        console.log('Erro na criação das memórias')
+    }
 
     Grafico.gerarLabels(algoritmo)
     await Grafico.gerarGrafico(resultado, algoritmoTrocaPaginas, memoria)

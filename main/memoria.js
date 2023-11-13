@@ -20,6 +20,8 @@ class Memoria {
     }
 
     criarMemoriaRam() {
+        document.getElementById('titulo-ram').innerHTML = 'RAM';
+
         const ram = document.getElementById('ram');
         ram.innerHTML = "";
 
