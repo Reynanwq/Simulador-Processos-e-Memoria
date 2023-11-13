@@ -34,7 +34,7 @@ class Grafico {
 
         let ultimoProcesso = null
         let largura = 0
-        let timeout = 50
+        let timeout = 1000
         for (const [i, acao] of grafico.entries()) {
             let containerAcoes = document.getElementById(acao['label'])
             const bar = document.createElement('div');
@@ -56,14 +56,18 @@ class Grafico {
             bar.style.width = '40px';
             
             await setTimeout(() => {
-                let processoEstaNaRam = memoria.verificaSeProcessoEstaNaRam(acao['label'])
-                if (processoEstaNaRam == false) {
-                    memoria.colocarPaginasDoProcessoNaRam(algoritmoTrocaPaginas, acao['label'])
+                try {
+                    let processoEstaNaRam = memoria.verificaSeProcessoEstaCompletamenteNaRam(acao['label'])
+                    if (processoEstaNaRam == false) {
+                        memoria.colocarPaginasDoProcessoNaRam(algoritmoTrocaPaginas, acao['label'])
+                    }
+                } catch (error) {
+                    console.log('Erro de memória')
                 }
     
                 containerAcoes.appendChild(bar);
             }, timeout);
-            timeout = timeout + 200
+            timeout = timeout + 300
             
 
             largura = largura + 40

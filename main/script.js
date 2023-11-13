@@ -119,14 +119,9 @@ async function executar(algoritmo) {
 
     let memoria = new Memoria(resultado.processos)
     memoria.criarMemoriaRam()
-    memoria.criarDisco()
-    await memoria.adicionarPaginasNoDisco(resultado.processos)
+    // memoria.criarDisco()
+    // await memoria.adicionarPaginasNoDisco(resultado.processos)
 
     Grafico.gerarLabels(algoritmo)
     await Grafico.gerarGrafico(resultado, algoritmoTrocaPaginas, memoria)
-
-
-    
-
-
 }
