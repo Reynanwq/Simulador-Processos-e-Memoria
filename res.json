@@ -1,0 +1,245 @@
+{
+    "sobrecarga": 2,
+    "quantum": 2,
+    "processos": [
+        {
+            "label": "A",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 10,
+            "deadline": 0,
+            "tempo_estouro_deadline": 0,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 18
+        },
+        {
+            "label": "B",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 10,
+            "deadline": 1,
+            "tempo_estouro_deadline": 1,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 36
+        }
+    ],
+    "grafico": [
+        {
+            "tempo": 0,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 1,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 2,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 3,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 4,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 5,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 6,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 7,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 8,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 9,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 10,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 11,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 12,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 13,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 14,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 15,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 16,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 17,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 0
+        },
+        {
+            "tempo": 18,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 19,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 20,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 21,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 22,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 23,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 24,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 25,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 26,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 27,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 28,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 29,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 30,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 31,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 32,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 33,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 34,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        },
+        {
+            "tempo": 35,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 1
+        }
+    ],
+    "tempo_medio": 27
+}
