@@ -111,7 +111,7 @@ async function executar(algoritmo) {
 
 
     let tempo_medio = resultado.tempo_medio.toFixed(2);
-    document.getElementById('tempo-medio').innerHTML = `<h3>Tempo médio ${algoritmo} = ${tempo_medio}</h3>`;
+    document.getElementById('tempo-medio').innerHTML = `<h3>Turnaround médio ${algoritmo} = ${tempo_medio}</h3>`;
 
 
     var algoritmoTrocaPaginas = document.getElementById('algoritmo_troca').value;
