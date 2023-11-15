@@ -36,7 +36,7 @@ class Memoria {
                 fila.appendChild(pagina);
                 pagina.innerHTML = counter
                 pagina.id = 'ram' + counter
-                this.ram.push({ 'pagina': counter, 'processo': undefined, 'entrada': 0 })
+                this.ram.push({ 'pagina': counter, 'processo': undefined, 'entrada': 0, 'contador': 0 })
                 counter++
             }
 
@@ -84,6 +84,10 @@ class Memoria {
             this.fifo(labelProcesso)
         }
 
+        if (algoritmoTroca == 'LRU') {
+            this.lru(labelProcesso)
+        }
+
     }
 
     verificaSeProcessoEstaCompletamenteNaRam(label) {
@@ -94,6 +98,75 @@ class Memoria {
         } 
         return false
     }
+
+
+    /*********************************************************************************************
+     * 
+     *                               LRU - Menos recentemente usada
+     * 
+     *********************************************************************************************/
+
+    lru(labelProcesso) {
+        let numeroPaginasParaAlocar = this.pegarNumeroDePaginasDoProcesso(labelProcesso)
+        let numeroPaginasQueProcessoPossuiNaRam = this.pegarNumeroDePaginasDoProcessoNaRam(labelProcesso)
+        numeroPaginasParaAlocar = numeroPaginasParaAlocar - numeroPaginasQueProcessoPossuiNaRam
+
+        let menosUsadas = this.pegarPaginasMenosRecentementeUtilizadas(numeroPaginasParaAlocar)
+        for (const menosUsada of menosUsadas) {
+            for (const pagina of this.ram) {
+                if (pagina['pagina'] == menosUsada) {
+                    this.ram[menosUsada].processo = labelProcesso
+                    this.ram[menosUsada].contador = this.ram[menosUsada].contador + 1
+                }
+            }
+        }
+
+
+        // for (let i = 0; i < this.numeroPaginasReais; i++) {
+        //     let numeroPaginasLivre = this.numeroDePaginasLivreNaRam()
+        //     if (numeroPaginasLivre == 0) {
+        //         let posicao = this.encontrarPrimeiraOcorrenciaDoProcessoQueEntrouPrimeiro(labelProcesso)
+        //         i = posicao
+        //     }
+
+
+        //     if (this.ram[i].processo == undefined || numeroPaginasLivre == 0) {
+        //         this.ram[i].processo = labelProcesso
+        //         this.ram[i].entrada = this.fifoTimerRAM
+        //         this.ram[i].contador = this.ram[i].contador + 1
+        //         numeroPaginasParaAlocar--
+        //     }
+
+        //     this.fifoTimerRAM++
+
+        //     if (numeroPaginasParaAlocar == 0) {
+        //         break
+        //     }
+
+        //     if (i == 49 && numeroPaginasParaAlocar > 0) {
+        //         let posicao = this.encontrarPrimeiraOcorrenciaDoProcessoQueEntrouPrimeiro(labelProcesso)
+        //         i = posicao
+        //     }
+        // }
+
+
+        this.atualizarGraficoRam()
+    }
+
+    pegarPaginasMenosRecentementeUtilizadas(N) {
+        const dadosOrdenados = [...this.ram];
+        // Ordenar os dados com base no contador em ordem crescente
+        dadosOrdenados.sort((a, b) => a.contador - b.contador);
+
+        // Extrair as N páginas com os menores valores de contador após a ordenação
+        return dadosOrdenados.slice(0, N).map(item => item.pagina);
+    }
+
+    /*********************************************************************************************
+     * 
+     *                                          FIFO
+     * 
+     *********************************************************************************************/
 
     fifo(labelProcesso) {
         let numeroPaginasParaAlocar = this.pegarNumeroDePaginasDoProcesso(labelProcesso)
@@ -192,6 +265,16 @@ class Memoria {
             }
         }
     }
+
+
+    generateUniqueId() {
+        const timestamp = new Date().getTime();
+        const random = Math.floor(Math.random() * 100000);
+        const uniqueId = `${timestamp}${random}`;
+        return uniqueId;
+      }
+      
+      
 
 
     // fifo(labelProcesso) {

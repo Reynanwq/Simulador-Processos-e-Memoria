@@ -62,6 +62,7 @@ class Grafico {
                         memoria.colocarPaginasDoProcessoNaRam(algoritmoTrocaPaginas, acao['label'])
                     }
                 } catch (error) {
+                    console.log(error)
                     console.log('Erro de memória')
                 }
     

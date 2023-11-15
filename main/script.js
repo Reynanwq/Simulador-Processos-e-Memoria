@@ -121,7 +121,7 @@ async function executar(algoritmo) {
 
     try {
         memoria.criarMemoriaRam()
-        document.getElementById('nome-algoritmo').innerHTML = `Troca: ${algoritmoTrocaPaginas}`
+        document.getElementById('nome-algoritmo').innerHTML = `Troca de páginas: ${algoritmoTrocaPaginas}`
         // memoria.criarDisco()
         // await memoria.adicionarPaginasNoDisco(resultado.processos)
     } catch (error) {
