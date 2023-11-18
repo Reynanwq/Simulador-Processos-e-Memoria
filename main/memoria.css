@@ -3,13 +3,12 @@
     border: 1px solid black;
 }
 
-#memorias {
+#memorias,#nome-algoritmo {
     margin: 100px;
-    overflow: hidden;
+    display: flex;
 }
 
 #ram, #disco {
-    float: left;
     margin-right: 50px;
     margin-bottom: 50px;
 }

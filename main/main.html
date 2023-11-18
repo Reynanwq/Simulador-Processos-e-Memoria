@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="num_processos">Número de Processos:</label>
-                    <input type="number" id="num_processos" value="2" class="form-control form-control-sm">
+                    <input type="number" id="num_processos" value="6" class="form-control form-control-sm">
                 </div>
             </div>
             <div class="col-md-4">
@@ -43,8 +43,8 @@
                 <div class="form-group">
                     <label for="algoritmo_troca">Troca de páginas:</label>
                     <select id="algoritmo_troca" class="form-control form-control-sm">
-                        <option value="FIFO">FIFO</option>
                         <option value="LRU">LRU</option>
+                        <option value="FIFO">FIFO</option>
                     </select>
                 </div>
             </div>
@@ -67,13 +67,21 @@
     </div>
 
     <div id="chartContainerContainer" style="overflow-x: auto; margin-bottom: 100px;">
-        <div id="chartContainer" class="chartContainer"class="mt-4"></div>
+        <div id="chartContainer" class="chartContainer" class="mt-4"></div>
+    </div>
+
+    <div>
+        <div id="algoritmo-nome">
+            <h4 class="h4" id="nome-algoritmo"></h4>
+        </div>
     </div>
 
     <div id="memorias">
-        <div id="disco"></div>
+        <div id="disco-div">
+            <h5 class="h5" id="titulo-disco"></h5>
+            <div class="h5" id="disco"></div>
+        </div>
         <div id="ram-div">
-            <h4 class="h4" id="nome-algoritmo"></h4>
             <h5 class="h5" id="titulo-ram"></h5>
             <div id="ram"></div>
         </div>

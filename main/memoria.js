@@ -95,7 +95,7 @@ class Memoria {
         let numeroDePaginasDoProcessoNaRam = this.pegarNumeroDePaginasDoProcessoNaRam(label)
         if (numeroDePaginasDoProcesso == numeroDePaginasDoProcessoNaRam) {
             return true
-        } 
+        }
         return false
     }
 
@@ -111,46 +111,47 @@ class Memoria {
         let numeroPaginasQueProcessoPossuiNaRam = this.pegarNumeroDePaginasDoProcessoNaRam(labelProcesso)
         numeroPaginasParaAlocar = numeroPaginasParaAlocar - numeroPaginasQueProcessoPossuiNaRam
 
+        this.removerDoDisco(labelProcesso)
+
+        let removidasDaRam = []
         let menosUsadas = this.pegarPaginasMenosRecentementeUtilizadas(numeroPaginasParaAlocar)
         for (const menosUsada of menosUsadas) {
             for (const pagina of this.ram) {
                 if (pagina['pagina'] == menosUsada) {
+
+                    if (pagina['processo'] != undefined) {
+                        removidasDaRam.push(pagina['processo'])
+                    }
+
                     this.ram[menosUsada].processo = labelProcesso
                     this.ram[menosUsada].contador = this.ram[menosUsada].contador + 1
                 }
             }
         }
 
-
-        // for (let i = 0; i < this.numeroPaginasReais; i++) {
-        //     let numeroPaginasLivre = this.numeroDePaginasLivreNaRam()
-        //     if (numeroPaginasLivre == 0) {
-        //         let posicao = this.encontrarPrimeiraOcorrenciaDoProcessoQueEntrouPrimeiro(labelProcesso)
-        //         i = posicao
-        //     }
-
-
-        //     if (this.ram[i].processo == undefined || numeroPaginasLivre == 0) {
-        //         this.ram[i].processo = labelProcesso
-        //         this.ram[i].entrada = this.fifoTimerRAM
-        //         this.ram[i].contador = this.ram[i].contador + 1
-        //         numeroPaginasParaAlocar--
-        //     }
-
-        //     this.fifoTimerRAM++
-
-        //     if (numeroPaginasParaAlocar == 0) {
-        //         break
-        //     }
-
-        //     if (i == 49 && numeroPaginasParaAlocar > 0) {
-        //         let posicao = this.encontrarPrimeiraOcorrenciaDoProcessoQueEntrouPrimeiro(labelProcesso)
-        //         i = posicao
-        //     }
-        // }
-
-
+        this.moverParaOdisco(removidasDaRam)
         this.atualizarGraficoRam()
+    }
+
+    removerDoDisco(labelProcesso) {
+        for (let i = 0; i < this.disco.length; i++) {
+            if (this.disco[i]['processo'] == labelProcesso) {
+                this.disco[i]['processo'] = undefined
+            }
+        }
+        this.atualizarGraficoDisco()
+    }
+
+    moverParaOdisco(processos) {
+        for (const processoLabel of processos) {
+            for (const [i, pagina] of this.disco.entries()) {
+                if (pagina['processo'] == undefined) {
+                    this.disco[i]['processo'] = processoLabel
+                    break
+                }
+            }
+        }
+        this.atualizarGraficoDisco()
     }
 
     pegarPaginasMenosRecentementeUtilizadas(N) {
@@ -223,6 +224,17 @@ class Memoria {
         }
     }
 
+    atualizarGraficoDisco() {
+        for (let i = 0; i < this.numeroPaginasVirtuais; i++) {
+            (document.getElementById('disco' + i)).innerHTML = i
+        }
+
+        for (let pagina of this.disco) {
+            if (pagina['processo'])
+                document.getElementById('disco' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
+        }
+    }
+
     pegarNumeroDePaginasDoProcesso(labelProcesso) {
         for (let processo of this.processos) {
             if (labelProcesso == processo['label']) {
@@ -272,9 +284,9 @@ class Memoria {
         const random = Math.floor(Math.random() * 100000);
         const uniqueId = `${timestamp}${random}`;
         return uniqueId;
-      }
-      
-      
+    }
+
+
 
 
     // fifo(labelProcesso) {
@@ -384,17 +396,6 @@ class Memoria {
     //     for (let pagina of this.ram) {
     //         if (pagina['processo'])
     //             document.getElementById('ram' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
-    //     }
-    // }
-
-    // atualizarGraficoDisco() {
-    //     for (let i = 0; i < this.numeroPaginasVirtuais; i++) {
-    //         (document.getElementById('disco' + i)).innerHTML = i
-    //     }
-
-    //     for (let pagina of this.disco) {
-    //         if (pagina['processo'])
-    //             document.getElementById('disco' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
     //     }
     // }
 

@@ -68,7 +68,7 @@ class Grafico {
     
                 containerAcoes.appendChild(bar);
             }, timeout);
-            timeout = timeout + 300
+            timeout = timeout + 900
             
 
             largura = largura + 40
