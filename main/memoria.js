@@ -79,26 +79,6 @@ class Memoria {
         this.atualizarGraficoDisco()
     }
 
-    colocarPaginasDoProcessoNaRam(algoritmoTroca, labelProcesso) {
-        if (algoritmoTroca == 'FIFO') {
-            this.fifo(labelProcesso)
-        }
-
-        if (algoritmoTroca == 'LRU') {
-            this.lru(labelProcesso)
-        }
-
-    }
-
-    verificaSeProcessoEstaCompletamenteNaRam(label) {
-        let numeroDePaginasDoProcesso = this.pegarNumeroDePaginasDoProcesso(label)
-        let numeroDePaginasDoProcessoNaRam = this.pegarNumeroDePaginasDoProcessoNaRam(label)
-        if (numeroDePaginasDoProcesso == numeroDePaginasDoProcessoNaRam) {
-            return true
-        }
-        return false
-    }
-
 
     /*********************************************************************************************
      * 
@@ -131,27 +111,6 @@ class Memoria {
 
         this.moverParaOdisco(removidasDaRam)
         this.atualizarGraficoRam()
-    }
-
-    removerDoDisco(labelProcesso) {
-        for (let i = 0; i < this.disco.length; i++) {
-            if (this.disco[i]['processo'] == labelProcesso) {
-                this.disco[i]['processo'] = undefined
-            }
-        }
-        this.atualizarGraficoDisco()
-    }
-
-    moverParaOdisco(processos) {
-        for (const processoLabel of processos) {
-            for (const [i, pagina] of this.disco.entries()) {
-                if (pagina['processo'] == undefined) {
-                    this.disco[i]['processo'] = processoLabel
-                    break
-                }
-            }
-        }
-        this.atualizarGraficoDisco()
     }
 
     pegarPaginasMenosRecentementeUtilizadas(N) {
@@ -203,58 +162,6 @@ class Memoria {
         this.atualizarGraficoRam()
     }
 
-    pegarNumeroDePaginasDoProcessoNaRam(processoLabel) {
-        let counter = 0
-        for (let pagina of this.ram) {
-            if (processoLabel == pagina['processo']) {
-                counter = counter + 1
-            }
-        }
-        return counter
-    }
-
-    atualizarGraficoRam() {
-        for (let i = 0; i < this.numeroPaginasReais; i++) {
-            (document.getElementById('ram' + i)).innerHTML = i
-        }
-
-        for (let pagina of this.ram) {
-            if (pagina['processo'])
-                document.getElementById('ram' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
-        }
-    }
-
-    atualizarGraficoDisco() {
-        for (let i = 0; i < this.numeroPaginasVirtuais; i++) {
-            (document.getElementById('disco' + i)).innerHTML = i
-        }
-
-        for (let pagina of this.disco) {
-            if (pagina['processo'])
-                document.getElementById('disco' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
-        }
-    }
-
-    pegarNumeroDePaginasDoProcesso(labelProcesso) {
-        for (let processo of this.processos) {
-            if (labelProcesso == processo['label']) {
-                return processo['paginas']
-            }
-        }
-    }
-
-    numeroDePaginasLivreNaRam() {
-        let paginasLivre = 0
-        for (const [i, pagina] of this.ram.entries()) {
-            if (pagina['processo'] == undefined) {
-                paginasLivre++
-            }
-        }
-
-        return paginasLivre;
-    }
-
-
     encontrarProcessoQueEntrouPrimeiro(labelProcesso) {
         let menorTempo = Infinity;
         let processoMenorTempo = null;
@@ -278,136 +185,106 @@ class Memoria {
         }
     }
 
+    /*********************************************************************************************
+     * 
+     *                               Manipulações de RAM e Disco
+     * 
+     *********************************************************************************************/
+        colocarPaginasDoProcessoNaRam(algoritmoTroca, labelProcesso) {
+            if (algoritmoTroca == 'FIFO') {
+                this.fifo(labelProcesso)
+            }
+    
+            if (algoritmoTroca == 'LRU') {
+                this.lru(labelProcesso)
+            }
+    
+        }
+    
+        verificaSeProcessoEstaCompletamenteNaRam(label) {
+            let numeroDePaginasDoProcesso = this.pegarNumeroDePaginasDoProcesso(label)
+            let numeroDePaginasDoProcessoNaRam = this.pegarNumeroDePaginasDoProcessoNaRam(label)
+            if (numeroDePaginasDoProcesso == numeroDePaginasDoProcessoNaRam) {
+                return true
+            }
+            return false
+        }
+    
+    
+        removerDoDisco(labelProcesso) {
+            for (let i = 0; i < this.disco.length; i++) {
+                if (this.disco[i]['processo'] == labelProcesso) {
+                    this.disco[i]['processo'] = undefined
+                }
+            }
+            this.atualizarGraficoDisco()
+        }
+    
+        moverParaOdisco(processos) {
+            for (const processoLabel of processos) {
+                for (const [i, pagina] of this.disco.entries()) {
+                    if (pagina['processo'] == undefined) {
+                        this.disco[i]['processo'] = processoLabel
+                        break
+                    }
+                }
+            }
+            this.atualizarGraficoDisco()
+        }
 
-    generateUniqueId() {
-        const timestamp = new Date().getTime();
-        const random = Math.floor(Math.random() * 100000);
-        const uniqueId = `${timestamp}${random}`;
-        return uniqueId;
+    pegarNumeroDePaginasDoProcessoNaRam(processoLabel) {
+        let counter = 0
+        for (let pagina of this.ram) {
+            if (processoLabel == pagina['processo']) {
+                counter = counter + 1
+            }
+        }
+        return counter
     }
 
+    pegarNumeroDePaginasDoProcesso(labelProcesso) {
+        for (let processo of this.processos) {
+            if (labelProcesso == processo['label']) {
+                return processo['paginas']
+            }
+        }
+    }
 
+    numeroDePaginasLivreNaRam() {
+        let paginasLivre = 0
+        for (const [i, pagina] of this.ram.entries()) {
+            if (pagina['processo'] == undefined) {
+                paginasLivre++
+            }
+        }
 
+        return paginasLivre;
+    }
 
-    // fifo(labelProcesso) {
-    //     let numeroPaginasDoProcesso = this.pegarNumeroDePaginasDoProcesso(labelProcesso)
-    //     let numeroPaginasLivre = this.pegarNumeroDePaginasLivreNaRam()
-    //     let paginasParaRetornarAoDisco = []
+    /*********************************************************************************************
+     * 
+     *                               Manipulação da Interface
+     * 
+     *********************************************************************************************/
+    atualizarGraficoRam() {
+        for (let i = 0; i < this.numeroPaginasReais; i++) {
+            (document.getElementById('ram' + i)).innerHTML = i
+        }
 
+        for (let pagina of this.ram) {
+            if (pagina['processo'])
+                document.getElementById('ram' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
+        }
+    }
 
-    //     let primeiroEntrar;
-    //     if (numeroPaginasLivre == 0) {
-    //         primeiroEntrar = this.encontrarProcessoQueEntrouPrimeiro(this.ram)
-    //     }
+    atualizarGraficoDisco() {
+        for (let i = 0; i < this.numeroPaginasVirtuais; i++) {
+            (document.getElementById('disco' + i)).innerHTML = i
+        }
 
-    //     // Remove as páginas de RAM de acordo com as regras do FIFO
-    //     while (numeroPaginasLivre < numeroPaginasDoProcesso) {
-    //         for (const [i, pagina] of this.ram.entries()) {
-    //             if (this.ram[i].processo == primeiroEntrar) {
-    //                 if (this.ram[i].processo) {
-    //                     paginasParaRetornarAoDisco.push(this.ram[i].processo)
-    //                 }
-    //                 this.ram[i].processo = labelProcesso
-    //                 this.ram[i]['entrada'] = this.fifoTimerRAM
-    //                 numeroPaginasLivre++
-    //                 if (numeroPaginasLivre == numeroPaginasDoProcesso) {
-    //                     break
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     // A páginas que foram removidas da RAM voltam para o disco
-    //     for (let i = 0; i < paginasParaRetornarAoDisco.length; i++) {
-    //         for (const[k, pagina] of this.disco.entries()) {
-    //             if (this.disco[k]['processo'] == undefined) {
-    //                 this.disco[k]['processo'] = paginasParaRetornarAoDisco[i]
-    //                 paginasParaRetornarAoDisco.splice(i, 1);
-    //             }
-    //         }
-    //     }
-
-
-    //     // Adicionando páginas na RAM
-    //     let paginasAdicionadas = 0
-    //     for (const [i, pagina] of this.ram.entries()) {
-
-    //         if (paginasAdicionadas == numeroPaginasDoProcesso) {
-    //             break
-    //         }
-
-    //         if (labelProcesso == 'F') {
-    //             console.log(labelProcesso + ' ' + this.fifoTimerRAM)
-    //         }
-
-    //         if (pagina['processo'] == undefined) {
-    //             pagina['processo'] = labelProcesso
-    //             this.ram[i]['processo'] = labelProcesso
-    //             this.ram[i]['entrada'] = this.fifoTimerRAM
-    //             paginasAdicionadas = paginasAdicionadas + 1
-    //         }
-    //         this.fifoTimerRAM++
-    //     }
-
-    //     // Removendo páginas do disco
-    //     for (const[i, pagina] of this.disco.entries()) {
-    //         if (pagina['processo'] == labelProcesso) {
-    //             this.disco[i]['processo'] = undefined
-    //         }
-    //     }
-
-    //     this.atualizarGraficoDisco()
-    //     this.atualizarGraficoRam()
-
-    // }
-
-    // encontrarProcessoQueEntrouPrimeiro(paginas) {
-    //     let menorTempo = Infinity;
-    //     let processoMenorTempo = null;
-
-    //     for (const dado of paginas) {
-    //         if (dado.entrada < menorTempo) {
-    //             menorTempo = dado.entrada;
-    //             processoMenorTempo = dado.processo;
-    //         }
-    //     }
-
-    //     return processoMenorTempo;
-    // }
-
-    // pegarValoresDaPagina(valor) {
-    //     return valor.split(" ");
-    // }
-
-    // pegarNumeroDePaginasDoProcesso(labelProcesso) {
-    //     for (let processo of this.processos) {
-    //         if (labelProcesso == processo['label']) {
-    //             return processo['paginas']
-    //         }
-    //     }
-    // }
-
-
-    // atualizarGraficoRam() {
-    //     for (let i = 0; i < this.numeroPaginasReais; i++) {
-    //         (document.getElementById('ram' + i)).innerHTML = i
-    //     }
-
-    //     for (let pagina of this.ram) {
-    //         if (pagina['processo'])
-    //             document.getElementById('ram' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
-    //     }
-    // }
-
-    // numeroDePaginasLivreNaRam() {
-    //     let paginasLivre = 0
-    //     for (const [i, pagina] of this.ram.entries()) {
-    //         if (pagina['processo'] == undefined) {
-    //             paginasLivre++
-    //         }
-    //     }
-
-    //     return paginasLivre;
-    // }
-
+        for (let pagina of this.disco) {
+            if (pagina['processo'])
+                document.getElementById('disco' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
+        }
+    }
 }
