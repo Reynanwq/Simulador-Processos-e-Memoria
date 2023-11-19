@@ -133,6 +133,9 @@ class Memoria {
         let numeroPaginasQueProcessoPossuiNaRam = this.pegarNumeroDePaginasDoProcessoNaRam(labelProcesso)
         numeroPaginasParaAlocar = numeroPaginasParaAlocar - numeroPaginasQueProcessoPossuiNaRam
 
+        this.removerDoDisco(labelProcesso)
+
+        let removidasDaRam = []
         for (let i = 0; i < this.numeroPaginasReais; i++) {
             let numeroPaginasLivre = this.numeroDePaginasLivreNaRam()
             if (numeroPaginasLivre == 0) {
@@ -142,6 +145,9 @@ class Memoria {
 
 
             if (this.ram[i].processo == undefined || numeroPaginasLivre == 0) {
+                if (this.ram[i].processo != undefined) {
+                    removidasDaRam.push(this.ram[i].processo)
+                }
                 this.ram[i].processo = labelProcesso
                 this.ram[i].entrada = this.fifoTimerRAM
                 numeroPaginasParaAlocar--
@@ -158,7 +164,7 @@ class Memoria {
                 i = posicao
             }
         }
-
+        this.moverParaOdisco(removidasDaRam)
         this.atualizarGraficoRam()
     }
 
