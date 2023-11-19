@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="num_processos">Número de Processos:</label>
-                    <input type="number" id="num_processos" value="6" class="form-control form-control-sm">
+                    <input type="number" id="num_processos" value="2" class="form-control form-control-sm">
                 </div>
             </div>
             <div class="col-md-4">
@@ -51,15 +51,17 @@
         </div>
 
 
-        <button onclick="adicionarProcessos()" class="btn btn-primary">Adicionar Processos</button>
+        <button onclick="adicionarProcessos()" id="adicionarProcessos" class="btn btn-primary">Adicionar Processos</button>
+        <button onclick="restaurarProcessosAnteriores()" id="restaurar" class="btn btn-primary">Restaurar valores anteriores</button>
 
         <div id="processos" class="mt-4" style="display:none;">
             <h2>Detalhes do Processo</h2>
             <div id="processosDetails" class="form-group"></div>
-            <button onclick="executar('FIFO')" class="btn btn-success btn-sm">FIFO</button>
-            <button onclick="executar('SJF')" class="btn btn-success btn-sm">SJF</button>
-            <button onclick="executar('Round Robin')" class="btn btn-success btn-sm">Round Robin</button>
-            <button onclick="executar('EDF')" class="btn btn-success btn-sm">EDF</button>
+            <button onclick="executar('FIFO')" id="fifo" class="btn btn-success btn-sm">FIFO</button>
+            <button onclick="executar('SJF')" id="sjf" class="btn btn-success btn-sm">SJF</button>
+            <button onclick="executar('Round Robin')" id="rr" class="btn btn-success btn-sm">Round Robin</button>
+            <button onclick="executar('EDF')" id="edf" class="btn btn-success btn-sm">EDF</button>
+            <button onclick="recarregarPagina()" id="recarregar" class="btn btn-warning btn-sm">Resetar</button>
         </div>
 
         <div id="tempo-medio" class="mt-4"></div>

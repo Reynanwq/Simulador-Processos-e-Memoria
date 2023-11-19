@@ -2,6 +2,9 @@ var processosData = [];
 
 
 function adicionarProcessos() {
+    document.getElementById('adicionarProcessos').disabled = true
+    document.getElementById('restaurar').disabled = true
+
     var num_processos = parseInt(document.getElementById('num_processos').value);
     var quantum = parseInt(document.getElementById('qtd_quantum').value);
     var sobrecarga = parseInt(document.getElementById('sobrecarga').value);
@@ -43,6 +46,8 @@ function adicionarProcessos() {
         `;
     }
 
+    guardarDadosIniciais()
+
     document.getElementById('processosDetails').innerHTML = processosDetailsHTML;
 
     document.getElementById('num_processos').disabled = true;
@@ -50,8 +55,9 @@ function adicionarProcessos() {
     document.getElementById('sobrecarga').disabled = true;
 
     document.getElementById('processos').style.display = 'block';
-}
 
+
+}
 
 
 async function executar(algoritmo) {
@@ -78,6 +84,7 @@ async function executar(algoritmo) {
         processosData[i].paginas = paginas
     }
 
+    localStorage.setItem('processosArray', JSON.stringify(processosData))
 
     for (var i = 0; i < num_processos; i++) {
         var label = String.fromCharCode(65 + i);
@@ -107,7 +114,10 @@ async function executar(algoritmo) {
         resultado = escalonador.edf();
     }
 
-    // console.log(JSON.stringify(resultado))
+    document.getElementById('fifo').disabled = true
+    document.getElementById('rr').disabled = true
+    document.getElementById('sjf').disabled = true
+    document.getElementById('edf').disabled = true
 
 
     let tempo_medio = resultado.tempo_medio.toFixed(2);
@@ -132,4 +142,113 @@ async function executar(algoritmo) {
 
     Grafico.gerarLabels(algoritmo)
     await Grafico.gerarGrafico(resultado, algoritmoTrocaPaginas, memoria)
+}
+
+
+
+
+/******************************************************************************
+ *  
+ *                              Restaurar valores
+ * 
+ ******************************************************************************/
+
+function recarregarPagina() {
+    location.reload()
+    alert("Clique em 'Restaurar' para recuperar valores anteriores")
+}
+
+function guardarDadosIniciais() {
+    localStorage.clear()
+    let num_processos = document.getElementById("num_processos").value;
+    let qtd_quantum = document.getElementById("qtd_quantum").value;
+    let sobrecarga = document.getElementById("sobrecarga").value;
+    let algoritmo_troca = document.getElementById("algoritmo_troca").value;
+
+    localStorage.setItem("num_processos", num_processos);
+    localStorage.setItem("qtd_quantum", qtd_quantum);
+    localStorage.setItem("sobrecarga", sobrecarga);
+    localStorage.setItem("algoritmo_troca", algoritmo_troca);
+}
+
+function restaurarProcessosAnteriores() {
+    let num_processos_storage = localStorage.getItem("num_processos");
+    let qtd_quantum_storage = localStorage.getItem("qtd_quantum");
+    let sobrecarga_storage = localStorage.getItem("sobrecarga");
+    let algoritmo_troca_storage = localStorage.getItem("algoritmo_troca");
+
+    if (num_processos_storage !== null) {
+        document.getElementById("num_processos").value = num_processos_storage;
+    }
+    if (qtd_quantum_storage !== null) {
+        document.getElementById("qtd_quantum").value = qtd_quantum_storage;
+    }
+    if (sobrecarga_storage !== null) {
+        document.getElementById("sobrecarga").value = sobrecarga_storage;
+    }
+    if (algoritmo_troca_storage !== null) {
+        document.getElementById("algoritmo_troca").value = algoritmo_troca_storage;
+    }
+
+    let processosAnteriores = localStorage.getItem('processosArray')
+
+    if (processosAnteriores == null) {
+        alert('Não há valores para restaurar. Adicione novos processos')
+        document.getElementById('restaurar').disabled = true
+        return
+    }
+
+    document.getElementById('restaurar').disabled = true
+    document.getElementById('adicionarProcessos').disabled = true
+    
+
+    processosAnteriores = JSON.parse(processosAnteriores);
+    num_processos = processosAnteriores.length
+    var quantum = parseInt(document.getElementById('qtd_quantum').value);
+    var sobrecarga = parseInt(document.getElementById('sobrecarga').value);
+    processosData = []
+    let processosDetailsHTML = ''
+
+    for (const [i, processo] of processosAnteriores.entries()) {
+        processosData.push({
+            "quantum": quantum,
+            "sobrecarga": sobrecarga,
+            "deadline": 0,
+            "tempo_chegada": 0,
+            "tempo_execucao": 0
+        });
+
+        var label = String.fromCharCode(65 + i);
+        processosDetailsHTML += `
+            <div class="row">
+                <div class="col">
+                    <h3>Processo ${label}</h3>
+                </div>
+                <div class="col">
+                    <label for="deadline_time_${i}">Deadline:</label>
+                    <input type="number" id="deadline_time_${i}", value="${processo['deadline']}" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="time_chegada_${i}">Tempo de chegada:</label>
+                    <input type="number" id="time_chegada_${i}", value="${processo['tempo_chegada']}" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="execucao_tempo_${i}">Tempo de execução:</label>
+                    <input type="number" id="execucao_tempo_${i}", value="${processo['tempo_execucao']}" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="numero_paginas_${i}">N° de Páginas:</label>
+                    <input type="number" id="numero_paginas_${i}", value="${processo['paginas']}" class="form-control">
+                </div>
+            </div>
+        `;
+    } 
+
+
+    document.getElementById('processosDetails').innerHTML = processosDetailsHTML;
+
+    document.getElementById('num_processos').disabled = true;
+    document.getElementById('qtd_quantum').disabled = true;
+    document.getElementById('sobrecarga').disabled = true;
+    document.getElementById('processos').style.display = 'block';
 }
