@@ -28,7 +28,7 @@ function adicionarProcessos() {
                 </div>
                 <div class="col">
                     <label for="deadline_time_${i}">Deadline:</label>
-                    <input type="number" id="deadline_time_${i}", value="${10 + i}" class="form-control">
+                    <input type="number" id="deadline_time_${i}", value="10" class="form-control">
                 </div>
                 <div class="col">
                     <label for="time_chegada_${i}">Tempo de chegada:</label>
@@ -36,11 +36,11 @@ function adicionarProcessos() {
                 </div>
                 <div class="col">
                     <label for="execucao_tempo_${i}">Tempo de execução:</label>
-                    <input type="number" id="execucao_tempo_${i}", value="10" class="form-control">
+                    <input type="number" id="execucao_tempo_${i}", value="4" class="form-control">
                 </div>
                 <div class="col">
                     <label for="numero_paginas_${i}">N° de Páginas:</label>
-                    <input type="number" id="numero_paginas_${i}", value="10" class="form-control">
+                    <input type="number" id="numero_paginas_${i}", value="2" class="form-control">
                 </div>
             </div>
         `;
