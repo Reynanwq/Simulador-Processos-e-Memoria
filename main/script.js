@@ -28,19 +28,19 @@ function adicionarProcessos() {
                 </div>
                 <div class="col">
                     <label for="deadline_time_${i}">Deadline:</label>
-                    <input type="number" id="deadline_time_${i}", value="10" class="form-control">
+                    <input type="number" id="deadline_time_${i}" min="0" value="10" class="form-control">
                 </div>
                 <div class="col">
                     <label for="time_chegada_${i}">Tempo de chegada:</label>
-                    <input type="number" id="time_chegada_${i}", value="0" class="form-control">
+                    <input type="number" id="time_chegada_${i}" min="0" value="0" class="form-control">
                 </div>
                 <div class="col">
                     <label for="execucao_tempo_${i}">Tempo de execução:</label>
-                    <input type="number" id="execucao_tempo_${i}", value="4" class="form-control">
+                    <input type="number" id="execucao_tempo_${i}" min="1" value="4" class="form-control">
                 </div>
                 <div class="col">
                     <label for="numero_paginas_${i}">N° de Páginas:</label>
-                    <input type="number" id="numero_paginas_${i}", value="2" class="form-control">
+                    <input type="number" id="numero_paginas_${i}" min="1" value="2" class="form-control">
                 </div>
             </div>
         `;
@@ -226,19 +226,19 @@ function restaurarProcessosAnteriores() {
                 </div>
                 <div class="col">
                     <label for="deadline_time_${i}">Deadline:</label>
-                    <input type="number" id="deadline_time_${i}", value="${processo['deadline']}" class="form-control">
+                    <input type="number" id="deadline_time_${i}" min="0" value="${processo['deadline']}" class="form-control">
                 </div>
                 <div class="col">
                     <label for="time_chegada_${i}">Tempo de chegada:</label>
-                    <input type="number" id="time_chegada_${i}", value="${processo['tempo_chegada']}" class="form-control">
+                    <input type="number" id="time_chegada_${i}" min="0" value="${processo['tempo_chegada']}" class="form-control">
                 </div>
                 <div class="col">
                     <label for="execucao_tempo_${i}">Tempo de execução:</label>
-                    <input type="number" id="execucao_tempo_${i}", value="${processo['tempo_execucao']}" class="form-control">
+                    <input type="number" id="execucao_tempo_${i}" min="1" value="${processo['tempo_execucao']}" class="form-control">
                 </div>
                 <div class="col">
                     <label for="numero_paginas_${i}">N° de Páginas:</label>
-                    <input type="number" id="numero_paginas_${i}", value="${processo['paginas']}" class="form-control">
+                    <input type="number" id="numero_paginas_${i}" min="1" value="${processo['paginas']}" class="form-control">
                 </div>
             </div>
         `;
