@@ -40,7 +40,7 @@ function adicionarProcessos() {
                 </div>
                 <div class="col">
                     <label for="numero_paginas_${i}">N° de Páginas:</label>
-                    <input type="number" id="numero_paginas_${i}" min="1" value="2" class="form-control">
+                    <input type="number" id="numero_paginas_${i}" min="1" max="10" value="2" class="form-control">
                 </div>
             </div>
         `;
@@ -238,7 +238,7 @@ function restaurarProcessosAnteriores() {
                 </div>
                 <div class="col">
                     <label for="numero_paginas_${i}">N° de Páginas:</label>
-                    <input type="number" id="numero_paginas_${i}" min="1" value="${processo['paginas']}" class="form-control">
+                    <input type="number" id="numero_paginas_${i}" min="1" max="10" value="${processo['paginas']}" class="form-control">
                 </div>
             </div>
         `;

@@ -1,6 +1,6 @@
 class Escalonador {
 
-    constructor(processosData, memoryManager) {
+    constructor(processosData) {
         this.processosData = processosData
         this.processos = processosData.processos
 
@@ -27,8 +27,6 @@ class Escalonador {
 
         this.cpu = []
         this.fila = []
-
-        this.memoryManager = memoryManager;
     }
 
     /*************************************************************************************
