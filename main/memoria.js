@@ -279,7 +279,7 @@ class Memoria {
 
         for (let pagina of this.ram) {
             if (pagina['processo'])
-                document.getElementById('ram' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
+            document.getElementById('ram' + pagina['pagina']).innerHTML = `${pagina['pagina']} <span style="color: red;">${pagina['processo']}</span>`
         }
     }
 
@@ -290,7 +290,7 @@ class Memoria {
 
         for (let pagina of this.disco) {
             if (pagina['processo'])
-                document.getElementById('disco' + pagina['pagina']).innerHTML = pagina['pagina'] + ' ' + pagina['processo']
+                document.getElementById('disco' + pagina['pagina']).innerHTML = `${pagina['pagina']} <span style="color: red;">${pagina['processo']}</span>`
         }
     }
 }
