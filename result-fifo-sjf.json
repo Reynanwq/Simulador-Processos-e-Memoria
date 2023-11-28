@@ -1,0 +1,117 @@
+{
+    "sobrecarga": 2,
+    "quantum": 2,
+    "processos": [
+        {
+            "label": "A",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_total": 4
+        },
+        {
+            "label": "B",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_total": 8
+        },
+        {
+            "label": "C",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_total": 12
+        },
+        {
+            "label": "D",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_total": 16
+        }
+    ],
+    "grafico": [
+        {
+            "tempo": 0,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 1,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 2,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 3,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 4,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 5,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 6,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 7,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 8,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 9,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 10,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 11,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 12,
+            "label": "D",
+            "status": "executando"
+        },
+        {
+            "tempo": 13,
+            "label": "D",
+            "status": "executando"
+        },
+        {
+            "tempo": 14,
+            "label": "D",
+            "status": "executando"
+        },
+        {
+            "tempo": 15,
+            "label": "D",
+            "status": "executando"
+        }
+    ],
+    "tempo_medio": 10
+}

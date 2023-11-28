@@ -1,0 +1,165 @@
+{
+    "sobrecarga": 2,
+    "quantum": 2,
+    "processos": [
+        {
+            "label": "A",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 18
+        },
+        {
+            "label": "B",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 20
+        },
+        {
+            "label": "C",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 22
+        },
+        {
+            "label": "D",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 24
+        }
+    ],
+    "grafico": [
+        {
+            "tempo": 0,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 1,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 2,
+            "label": "A",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 3,
+            "label": "A",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 4,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 5,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 6,
+            "label": "B",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 7,
+            "label": "B",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 8,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 9,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 10,
+            "label": "C",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 11,
+            "label": "C",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 12,
+            "label": "D",
+            "status": "executando"
+        },
+        {
+            "tempo": 13,
+            "label": "D",
+            "status": "executando"
+        },
+        {
+            "tempo": 14,
+            "label": "D",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 15,
+            "label": "D",
+            "status": "sobrecarga"
+        },
+        {
+            "tempo": 16,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 17,
+            "label": "A",
+            "status": "executando"
+        },
+        {
+            "tempo": 18,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 19,
+            "label": "B",
+            "status": "executando"
+        },
+        {
+            "tempo": 20,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 21,
+            "label": "C",
+            "status": "executando"
+        },
+        {
+            "tempo": 22,
+            "label": "D",
+            "status": "executando"
+        },
+        {
+            "tempo": 23,
+            "label": "D",
+            "status": "executando"
+        }
+    ],
+    "tempo_medio": 21
+}

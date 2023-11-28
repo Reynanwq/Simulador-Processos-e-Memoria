@@ -1,0 +1,197 @@
+{
+    "sobrecarga": 2,
+    "quantum": 2,
+    "processos": [
+        {
+            "label": "A",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "deadline": 10,
+            "tempo_estouro_deadline": 10,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 18
+        },
+        {
+            "label": "B",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "deadline": 10,
+            "tempo_estouro_deadline": 10,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 20
+        },
+        {
+            "label": "C",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "deadline": 10,
+            "tempo_estouro_deadline": 10,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 22
+        },
+        {
+            "label": "D",
+            "tempo_de_chegada": 0,
+            "tempo_de_execucao": 4,
+            "paginas": 2,
+            "deadline": 10,
+            "tempo_estouro_deadline": 10,
+            "tempo_restante": 0,
+            "falta_executar": false,
+            "tempo_total": 24
+        }
+    ],
+    "grafico": [
+        {
+            "tempo": 0,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 1,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 2,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 3,
+            "label": "A",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 4,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 5,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 6,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 7,
+            "label": "B",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 8,
+            "label": "C",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 9,
+            "label": "C",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 10,
+            "label": "C",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 11,
+            "label": "C",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 12,
+            "label": "D",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 13,
+            "label": "D",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 14,
+            "label": "D",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 15,
+            "label": "D",
+            "status": "sobrecarga",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 16,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 17,
+            "label": "A",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 18,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 19,
+            "label": "B",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 20,
+            "label": "C",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 21,
+            "label": "C",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 22,
+            "label": "D",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        },
+        {
+            "tempo": 23,
+            "label": "D",
+            "status": "executando",
+            "tempo_estouro_deadline": 10
+        }
+    ],
+    "tempo_medio": 21
+}
